@@ -34,10 +34,15 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
       
       {/* Main Card */}
       <div className="relative h-full rounded-2xl backdrop-blur-sm transition-all duration-500 group-hover:shadow-2xl overflow-hidden">
-         {course.isComingSoon && (
-  <div className="absolute inset-0 bg-black/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-20">
+       {course.isComingSoon && (
+  <div className="
+    absolute inset-0 bg-black/90 flex items-center justify-center 
+    opacity-100 
+    md:opacity-0 md:group-hover:opacity-100 
+    transition duration-300 z-20
+  ">
     <p className="text-orange-500 text-xl md:text-2xl font-bold">
-       Coming Soon
+      Coming Soon
     </p>
   </div>
 )}

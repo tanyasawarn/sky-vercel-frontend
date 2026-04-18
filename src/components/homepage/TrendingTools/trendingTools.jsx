@@ -25,18 +25,18 @@ const TrendingTools = () => {
     },
     {
       imgSrc: "/ds&mliconHP.webp",
-      title: "Data Science",
-      route: "/courses/mlops-masters",
+      title: "Machine Learning",
+      route: "/courses/genai-with-ml-masters-program",
     },
     {
       imgSrc: "/machinelearninghomepage.webp",
-      title: "Machine Learning",
-      route: "/courses/mlops-masters-program",
+      title: "Agentic AI",
+      route: "/courses/genai-with-ml-masters-program",
     },
     {
       imgSrc: "/aihomepage.webp",
       title: "Artificial Intelligence",
-      route: "/courses/mlops-masters-program",
+      route: "/courses/genai-with-ml-masters-program",
     },
   ];
 

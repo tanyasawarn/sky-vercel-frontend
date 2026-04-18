@@ -80,11 +80,7 @@ const isCoursePage = courseRoutes.some(route => pathname.includes(route));
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/80 backdrop-blur-lg shadow-md"
-            : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 w-full z-50 bg-white shadow-md"
       >
         <div className="max-w-7xl mx-auto px-5 flex justify-between items-center h-16">
           {/* Logo */}

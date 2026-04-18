@@ -21,7 +21,7 @@ const slides = [
     title: "GenAI With ML Master Course",
     desc: "From RAG architectures to Fine-tuning. Build production-ready AI agents from scratch.",
     img: "https://cdn.jsdelivr.net/gh/tanyasawarn/Website-Repo@main/genaiwithmlbanner.png",
-    link: "/courses/genai-with-ml-masters-program-program",
+    link: "/courses/genai-with-ml-masters-program",
     reviewLink: "https://m.youtube.com/@Skillfyme/videos",
   },
 ];
