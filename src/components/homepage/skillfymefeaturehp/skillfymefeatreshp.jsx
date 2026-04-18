@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { ArrowRight, Users, Trophy, Headphones } from "lucide-react";
+import EnrollmentForm from "@/components/common/enrollmentform/enrollmentform";
 
 const COLORS = {
   primary: "#0EA5E9",
@@ -256,7 +257,7 @@ const SectionHeader = () => (
   </div>
 );
 
-const HeroCard = ({ isVisible }) => {
+const HeroCard = ({ isVisible, onEnrollClick }) => {
   return (
     <div
       className="xl:w-[390px] flex-shrink-0 opacity-0 translate-x-[-28px]"
@@ -364,7 +365,7 @@ const HeroCard = ({ isVisible }) => {
             ))}
           </div>
 
-          <button className="cta-button mt-6 w-full">
+          <button onClick={onEnrollClick} className="cta-button mt-6 w-full">
             Start Learning Today
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
@@ -541,10 +542,15 @@ const SkillfymeFeatures = () => {
   const { ref: sectionRef, isVisible } = useIntersectionObserver(0.07, true);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mounted, setMounted] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
 
   return (
     <>
@@ -680,7 +686,10 @@ const SkillfymeFeatures = () => {
           <SectionHeader />
 
           <div className="flex flex-col xl:flex-row gap-6 xl:gap-7">
-            <HeroCard isVisible={isVisible} />
+            <HeroCard
+              isVisible={isVisible}
+              onEnrollClick={() => setShowForm(true)}
+            />
 
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-5">
               {FEATURES.map((feature, index) => (
@@ -697,6 +706,7 @@ const SkillfymeFeatures = () => {
 
           <TrustStrip />
         </div>
+        {showForm && <EnrollmentForm onClose={handleCloseForm} />}
       </section>
     </>
   );

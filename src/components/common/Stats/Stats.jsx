@@ -3,7 +3,7 @@ import React from "react";
 const Stats = ({ statsData, variant }) => {
   return (
     <div
-      className={`flex flex-wrap justify-center items-stretch gap-6 p-4 max-w-[1200px] mx-auto mb-8 relative z-[1] border-[3px] border-[#d0e5ff] rounded-[24px] shadow-[0_15px_35px_rgba(30,100,200,0.1),0_5px_15px_rgba(0,100,200,0.07)] ${
+      className={`flex flex-wrap justify-center items-stretch gap-6 p-4 max-w-[1200px] mx-auto mb-8 relative z-[10] border-[3px] border-[#d0e5ff] rounded-[24px] shadow-[0_15px_35px_rgba(30,100,200,0.1),0_5px_15px_rgba(0,100,200,0.07)] ${
         variant === "genai"
           ? "bg-[linear-gradient(135deg,#e6f7ff_0%,#f0f9ff_51%,#e3f2fd_100%)] mt-[-3rem] p-[25px] shadow-[0_6px_18px_rgba(0,0,0,0.12)] rounded-[16px]"
           : "bg-white mt-[-2rem]"
