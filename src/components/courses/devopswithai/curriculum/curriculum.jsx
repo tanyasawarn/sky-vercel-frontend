@@ -392,7 +392,7 @@ const Devopscurriculum = () => {
 
       <SectionHeading title="Course Modules" />
 
-      <div className="relative max-w-[1200px] mx-auto p-6 md:p-10 rounded-xl bg-[linear-gradient(135deg,#f8faff,#f0f5ff)] shadow-[0_25px_50px_-12px_rgba(66,100,255,0.15)] overflow-hidden">
+      <div className="relative max-w-[1200px] w-full mx-auto p-6 md:p-10 rounded-xl bg-[linear-gradient(135deg,#f8faff,#f0f5ff)] shadow-[0_25px_50px_-12px_rgba(66,100,255,0.15)] overflow-hidden">
         {/* Floating Shapes */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute w-[300px] h-[300px] -top-[150px] -left-[150px] rounded-full bg-blue-400/10 blur-[40px] animate-pulse"></div>

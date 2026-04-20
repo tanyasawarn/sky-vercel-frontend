@@ -128,7 +128,7 @@ const GenAICurriculum = () => {
   };
 
   return (
-    <div className="relative mx-auto max-w-[1200px] overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-sky-50 to-blue-100 p-6 shadow-xl">
+    <div className="relative mx-auto max-w-[1200px] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-sky-50 to-blue-100 p-6 shadow-xl">
 
       {/* Background Shapes */}
       <div className="absolute inset-0 overflow-hidden z-0">

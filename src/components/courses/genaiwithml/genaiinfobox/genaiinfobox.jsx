@@ -61,7 +61,7 @@ const GenaiInfoBox = () => {
               Admission Deadline
             </p>
             <p className="text-[1.5rem] font-bold text-[#2d3436]">
-              20th-April-26
+              11th-May-26
             </p>
           </div>
 

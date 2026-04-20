@@ -44,17 +44,19 @@ const GenAiCourseSection = () => {
   return (
     <>
       <div className="py-0 text-center">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 text-center py-2.5 px-2">
-       GenAI With Machine Learning{" "}
-        <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
-           Master Program
-        </span>
-      </h2>
+    
+
+       <h2 className="text-[2.8rem] font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
+            GenAI With Machine Learning{" "}
+            <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
+               Master Program
+            </span>
+          </h2>
        <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
       </div>
 
       <div className="py-8 flex items-center">
-        <div className="max-w-[1200px] mx-auto px-4">
+        <div className="max-w-[1200px] w-full  mx-auto px-4">
           <div className="flex justify-between items-start gap-12 p-12 bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] backdrop-blur-[10px] rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] flex-wrap">
 
             {/* LEFT */}

@@ -128,7 +128,7 @@ const DevopsDailyKra = () => {
   return (
     <>
       {/* Container */}
-      <div className="relative p-12 px-6 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-xl overflow-hidden max-w-[1200px] mx-auto font-sans">
+      <div className="relative p-12 px-6 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-xl overflow-hidden max-w-[1200px] w-full mx-auto font-sans">
 
         {/* Floating Shapes */}
         <div className="absolute inset-0 overflow-hidden z-0">

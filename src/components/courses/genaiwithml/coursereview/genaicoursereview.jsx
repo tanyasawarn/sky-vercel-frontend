@@ -82,7 +82,7 @@ const GenAICourseReview = () => {
   return (
     <div className="px-5 py-[60px] max-w-[1200px] w-full mx-auto rounded-xl flex justify-center items-center bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd]">
 
-      <div className={`w-full max-w-[1200px] transition-all duration-700 ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+      <div className={`w-full max-w-[1200px]  w-full transition-all duration-700 ${animate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
 
         {/* Heading */}
         <h2 className="relative text-center text-[#1a365d] text-[2.5rem] font-bold mb-6 mt-[-1rem] pb-2

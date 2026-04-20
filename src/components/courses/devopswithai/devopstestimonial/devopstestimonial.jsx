@@ -112,6 +112,7 @@ const googleReviews = [
     title: "Excellent Learning Experience",
     rating: 5,
     text: "I recently enrolled in the DevOps with AI course at Skillfyme, and my learning experience so far has been excellent...",
+     author: "Praneet",
     initials: "PM",
     link: "https://g.co/kgs/tFw6AAE",
   },

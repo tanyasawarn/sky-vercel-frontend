@@ -5,7 +5,7 @@ import React from "react";
 
 const DevOpsOpportunities = () => {
   return (
-    <div className="max-w-[1200px] mx-auto mt-8 mb-4 p-5 rounded-[12px] bg-[linear-gradient(135deg,#f8faff,#f0f5ff)] text-[#2c3e50]">
+    <div className="max-w-[1200px] w-full mx-auto mt-8 mb-4 p-5 rounded-[12px] bg-[linear-gradient(135deg,#f8faff,#f0f5ff)] text-[#2c3e50]">
       
       {/* Header */}
       <div className="text-center">

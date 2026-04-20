@@ -11,7 +11,6 @@
 //   ResponsiveContainer,
 //   Cell,
 // } from "recharts";
- 
 
 // // const genaiSalaryData = [
 // //   { role: "ML Engineer", min: 3.48, avg: 19, max: 30, companies: [comp1] },
@@ -29,7 +28,7 @@
 //     avg: 19,
 //     max: 30,
 //    // companies: ["/compslot1.png"],
-  
+
 //   },
 //   {
 //     role: "Generative AI Engineer",
@@ -43,7 +42,7 @@
 //     min: 4,
 //     avg: 14,
 //     max: 35,
-    
+
 //   },
 //   {
 //     role: "Agentic AI Engineer",
@@ -67,9 +66,6 @@
 //     // companies: ["/compslot6.png"],
 //   },
 // ];
-
- 
-
 
 // const GenaiCareerOptions = () => {
 //   const [activeRole, setActiveRole] = useState("ML Engineer");
@@ -179,13 +175,12 @@
 //     Top Companies Hiring
 //   </h2>
 
-   
 //   <img
 //     src="/compslot1.png"
 //     alt="company"
 //     className="w-full h-auto object-contain"
 //   />
- 
+
 // </div>
 
 //         </div>
@@ -194,9 +189,6 @@
 // };
 
 // export default GenaiCareerOptions;
-
-
-
 
 "use client";
 import React, { useState, useEffect } from "react";
@@ -211,15 +203,8 @@ import {
   Cell,
 } from "recharts";
 
-// import comp1 from "../../../../../assets/ConvertedImagers/compslot1.png";
-// import comp2 from "../../../../../assets/ConvertedImagers/compslot2.png";
-// import comp3 from "../../../../../assets/ConvertedImagers/compslot3.png";
-// import comp4 from "../../../../../assets/ConvertedImagers/compslot4.png";
-// import comp5 from "../../../../../assets/ConvertedImagers/compslot5.png";
-// import comp6 from "../../../../../assets/ConvertedImagers/compslot6.png";
-
 const genaiSalaryData = [
-  { role: "ML Engineer", min: 3.48, avg: 19, max: 30},
+  { role: "ML Engineer", min: 3.48, avg: 19, max: 30 },
   { role: "Generative AI Engineer", min: 4.5, avg: 13, max: 45 },
   { role: "AI Application Developer", min: 4, avg: 14, max: 35 },
   { role: "Agentic AI Engineer", min: 6, avg: 20, max: 40 },
@@ -243,14 +228,13 @@ const GenaiCareerOptions = () => {
   return (
     <div className="p-4 perspective-[1000px]">
       <div
-        className={`max-w-[1200px] mx-auto my-8 p-10 rounded-[24px] relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-700 ${
+        className={`max-w-[1200px] w-full mx-auto my-8 p-10 rounded-[24px] relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] transition-all duration-700 ${
           animate
             ? "opacity-100 translate-y-0 rotate-x-0"
             : "opacity-0 translate-y-5 rotate-x-[5deg]"
         }`}
         style={{
-          background:
-            "linear-gradient(135deg, #e6f7ff, #f0f9ff 51%, #e3f2fd)",
+          background: "linear-gradient(135deg, #e6f7ff, #f0f9ff 51%, #e3f2fd)",
         }}
       >
         {/* Background Shapes */}
@@ -269,7 +253,8 @@ const GenaiCareerOptions = () => {
             </span>
           </h2>
           <p className="text-[#37474f] max-w-[600px] mx-auto leading-relaxed">
-            Explore high-demand roles and their compensation in the generative AI industry
+            Explore high-demand roles and their compensation in the generative
+            AI industry
           </p>
         </div>
 
@@ -330,8 +315,8 @@ const GenaiCareerOptions = () => {
                           item.color === "green"
                             ? "bg-green-100 text-green-800"
                             : item.color === "blue"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-purple-100 text-purple-800"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-purple-100 text-purple-800"
                         }`}
                       >
                         ₹{item.value}L{item.label === "Maximum" && "+"}
@@ -358,13 +343,25 @@ const GenaiCareerOptions = () => {
                     <YAxis />
                     <Tooltip formatter={(v) => [`₹${v}L`, "Salary"]} />
 
-                    <Bar dataKey="min" barSize={60} isAnimationActive={barAnimation}>
+                    <Bar
+                      dataKey="min"
+                      barSize={60}
+                      isAnimationActive={barAnimation}
+                    >
                       <Cell fill="#4CAF50" />
                     </Bar>
-                    <Bar dataKey="avg" barSize={60} isAnimationActive={barAnimation}>
+                    <Bar
+                      dataKey="avg"
+                      barSize={60}
+                      isAnimationActive={barAnimation}
+                    >
                       <Cell fill="#2196F3" />
                     </Bar>
-                    <Bar dataKey="max" barSize={60} isAnimationActive={barAnimation}>
+                    <Bar
+                      dataKey="max"
+                      barSize={60}
+                      isAnimationActive={barAnimation}
+                    >
                       <Cell fill="#9C27B0" />
                     </Bar>
                   </BarChart>
@@ -375,13 +372,12 @@ const GenaiCareerOptions = () => {
         </div>
 
         {/* Companies */}
-       
 
-         <div className="text-center mb-1 relative z-10">
+        <div className="text-center mb-1 relative z-10">
           <h2 className="text-[2.8rem] font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
-           Top Companies{" "}
+            Top Companies{" "}
             <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
-            Hiring
+              Hiring
             </span>
           </h2>
         </div>
@@ -389,12 +385,12 @@ const GenaiCareerOptions = () => {
         <div className="bg-white/75 backdrop-blur-md rounded-2xl border border-white/60 shadow-md hover:-translate-y-1 transition">
           <div className="p-8">
             <div className="flex justify-center w-full">
-  <img
-    src="/compslot1.png"
-    alt="company"
-    className="w-full h-auto object-contain transition hover:scale-110"
-  />
-</div>
+              <img
+                src="/compslot1.png"
+                alt="company"
+                className="w-full h-auto object-contain transition hover:scale-110"
+              />
+            </div>
           </div>
         </div>
       </div>

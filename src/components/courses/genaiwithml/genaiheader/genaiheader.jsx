@@ -52,7 +52,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="w-full relative overflow-hidden flex justify-center items-center px-8 py-12 border-b border-[#d0e8ff] bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd]">
+      <div className="w-full relative overflow-hidden flex justify-center items-center py-6 border-b border-[#d0e8ff] bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd]">
 
         {/* Background radial effect */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -60,6 +60,8 @@ const Header = () => {
         </div>
 
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-[1200px] gap-8 text-[1.6rem]">
+
+        <div className="flex-1 p-4 animate-[fadeInUp_0.8s_ease-out] w-full order-2 md:order-1">
 
           {/* LEFT TEXT */}
           <div className="flex-1 p-4 animate-[fadeInUp_0.8s_ease-out] w-full">
@@ -92,6 +94,7 @@ const Header = () => {
                   <span className="text-sm md:text-base text-black">{item}</span>
                 </div>
               ))}
+              </div>
             </div>
 
             {/* BUTTONS */}
@@ -113,7 +116,8 @@ const Header = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="flex-1 flex justify-center items-center animate-[float_6s_ease-in-out_infinite]">
+          {/* <div className="flex-1 flex justify-center items-center animate-[float_6s_ease-in-out_infinite]"> */}
+          <div className="flex-1 flex justify-center items-center animate-[float_6s_ease-in-out_infinite] order-1 md:order-2">
             <img
               src={genaiBackgroundImage}
               alt="GenAI"

@@ -63,7 +63,7 @@ const DevOpsRoles = () => {
   }, [roles, activeIndex]);
 
   return (
-    <div className="flex justify-center items-center p-8 rounded-xl max-w-[1200px] mx-auto bg-[linear-gradient(135deg,#f8faff,#f0f5ff)]">
+    <div className="flex justify-center items-center p-8 rounded-xl max-w-[1200px] w-full mx-auto bg-[linear-gradient(135deg,#f8faff,#f0f5ff)]">
       
       <div className="w-full max-w-[900px] text-center">
         

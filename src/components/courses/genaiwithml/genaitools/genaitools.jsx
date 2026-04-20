@@ -73,7 +73,7 @@ const GenaimlToolsFrameworks = () => {
 
   return (
     <div
-      className="max-w-[1200px] mx-auto px-4"
+      className="max-w-[1200px] w-full mx-auto px-4"
       ref={sectionRef}
     >
       {/* HERO */}
@@ -104,13 +104,19 @@ const GenaimlToolsFrameworks = () => {
 
       {/* SKILLS */}
       <div className="py-10 text-center">
-         <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 text-center py-2.5 px-2">
-         20+ Skills{" "}
-        <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
-          Covered
-        </span>
-         <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
-      </h2>
+        
+
+            <h2 className="text-[2.8rem] font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
+              20+ Skills{" "}
+            <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
+              Covered
+            </span>
+                     <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-0 rounded"></span>
+
+          </h2>
+    
+
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {visibleSkills.map((skill, index) => (

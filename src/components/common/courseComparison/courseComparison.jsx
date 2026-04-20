@@ -12,7 +12,7 @@ export default function CourseComparison({ title, data }) {
 
       {/* Wrapper */}
       <div className="flex justify-center items-center p-[10px]">
-        <div className="w-full max-w-[1200px] rounded-[16px] overflow-hidden">
+        <div className="w-full max-w-[1200px] w-full mx-auto rounded-[16px] overflow-hidden">
 
           {/* Header */}
           <div className="text-center mt-[-2rem] mb-[30px] text-[#1a365d]">

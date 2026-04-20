@@ -154,7 +154,7 @@ const Faq = ({ faqs }) => {
   };
 
   return (
-    <section className="max-w-[1200px] mx-auto py-16 px-4">
+    <section className="max-w-[1200px] w-full mx-auto py-16 px-4">
 
       {/* Heading */}
       <SectionHeading title=" Frequently Asked Questions" />

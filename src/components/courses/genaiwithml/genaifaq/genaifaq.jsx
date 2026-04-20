@@ -85,7 +85,7 @@ const GenaiFaq = () => {
   };
 
   return (
-    <div className="relative max-w-[1200px] mx-auto mt-4 mb-8 rounded-xl py-8 bg-[radial-gradient(ellipse_at_top,_#f0f9ff,_#e6f7ff)]">
+    <div className="relative max-w-[1200px] w-full mx-auto mt-4 mb-8 rounded-xl py-8 bg-[radial-gradient(ellipse_at_top,_#f0f9ff,_#e6f7ff)]">
       
       <h2 className="text-center text-[2.5rem] font-bold text-[#1a365d] mb-6 relative">
         Frequently{" "}

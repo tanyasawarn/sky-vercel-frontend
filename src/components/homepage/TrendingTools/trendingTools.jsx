@@ -35,7 +35,7 @@ const TrendingTools = () => {
     },
     {
       imgSrc: "/aihomepage.webp",
-      title: "Artificial Intelligence",
+      title: "AI",
       route: "/courses/genai-with-ml-masters-program",
     },
   ];
@@ -45,7 +45,7 @@ const TrendingTools = () => {
   };
 
   return (
-    <section className="max-w-[1200px] mx-auto w-[90%] px-5 py-5 text-center mt-[-1rem]">
+    <section className="max-w-[1200px] w-full mx-auto w-[90%] px-5 py-5 text-center mt-[-1rem]">
       {/* Heading */}
       <h2
         className="relative text-center mb-[2.2rem] text-[2.2rem] font-bold bg-gradient-to-br from-[#00e6ff] to-[#2e2e99] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.05)] 

@@ -130,38 +130,76 @@ const isCoursePage = courseRoutes.some(route => pathname.includes(route));
         </div>
 
         {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-lg border-t shadow-lg p-5 space-y-4">
-            {isCoursePage ? (
-              <>
-                {navLink("home", "Home")}
-                {navLink("projects", "Projects")}
-                {navLink("course-fee", "Course Fee")}
-                {navLink("testimonials", "Testimonials")}
-                <Link href="/about-us" onClick={() => setMenuOpen(false)}>
-                  About Us
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
-                {/* <Link href="/blog" onClick={() => setMenuOpen(false)}>Blogs</Link> */}
-                <Link href="/about-us" onClick={() => setMenuOpen(false)}>About Us</Link>
-              </>
-            )}
+{menuOpen && (
+  <div className="lg:hidden bg-white border-t shadow-lg px-6 py-6 flex flex-col gap-4 text-center">
+    
+    {isCoursePage ? (
+      <>
+        {navLink("home", "Home")}
+        {navLink("coursedetails", "Curriculum")}
+        {navLink("projects", "Projects")}
+        {navLink("course-fee", "Course Fee")}
+        {navLink("testimonials", "Testimonials")}
 
-            {/* Mobile Login */}
-            <button
-              onClick={() => {
-                handleLogin();
-                setMenuOpen(false);
-              }}
-              className="w-full py-3 rounded-xl bg-blue-600 text-white font-medium"
-            >
-              Login
-            </button>
-          </div>
-        )}
+        <Link
+          href="/about-us"
+          onClick={() => setMenuOpen(false)}
+          className="text-gray-700 text-base font-medium"
+        >
+          About Us
+        </Link>
+      </>
+    ) : (
+      <>
+        <Link
+          href="/"
+          onClick={() => setMenuOpen(false)}
+          className="text-gray-700 text-base font-medium"
+        >
+          Home
+        </Link>
+
+        <Link
+          href="/corporate-training"
+          onClick={() => setMenuOpen(false)}
+          className="text-gray-700 text-base font-medium"
+        >
+          Corporate Training
+        </Link>
+
+        <Link
+          href="/contact-us"
+          onClick={() => setMenuOpen(false)}
+          className="text-gray-700 text-base font-medium"
+        >
+          Contact Us
+        </Link>
+
+        <Link
+          href="/about-us"
+          onClick={() => setMenuOpen(false)}
+          className="text-gray-700 text-base font-medium"
+        >
+          About Us
+        </Link>
+      </>
+    )}
+
+    {/* Divider */}
+    <div className="border-t my-2"></div>
+
+    {/* Login Button */}
+    <button
+      onClick={() => {
+        handleLogin();
+        setMenuOpen(false);
+      }}
+      className="w-full py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium"
+    >
+      Login
+    </button>
+  </div>
+)}
       </header>
 
       {/* Spacer */}

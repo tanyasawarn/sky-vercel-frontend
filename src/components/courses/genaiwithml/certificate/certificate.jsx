@@ -26,7 +26,7 @@ const GenAICertificate = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="relative w-full max-w-[1200px] mx-auto mt-4 rounded-xl px-4 py-8 font-[Segoe_UI,Tahoma,Geneva,Verdana,sans-serif]">
+    <div className="relative w-full max-w-[1200px] w-full mx-auto mt-4 rounded-xl px-4 py-8 font-[Segoe_UI,Tahoma,Geneva,Verdana,sans-serif]">
       
       <div className="bg-white rounded-xl shadow-[0_5px_20px_rgba(0,0,0,0.08)] overflow-hidden">
         

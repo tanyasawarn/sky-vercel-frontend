@@ -112,7 +112,7 @@ const GenaiDailyKra = () => {
   };
 
   return (
-    <div className="relative max-w-[1200px] mx-auto w-full px-6 py-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] font-sans">
+    <div className="relative max-w-[1200px] w-full mx-auto w-full px-6 py-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] font-sans">
       {/* Background shapes */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <div className="absolute w-[300px] h-[300px] top-[5%] -left-[50px] rounded-full opacity-15 bg-gradient-to-br from-[rgba(0,187,255,0.25)] to-[rgba(26,54,93,0.2)] animate-float"></div>

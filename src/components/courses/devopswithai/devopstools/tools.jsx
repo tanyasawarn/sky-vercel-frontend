@@ -68,7 +68,7 @@ useEffect(() => {
   return (
     <>
       {/* TOOLS SECTION */}
-      <div className="max-w-[1200px] mx-auto px-4 py-8 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] mt-12">
+      <div className="max-w-[1200px] w-full mx-auto px-4 py-8 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] mt-12">
         
         {/* <h2 className="text-center text-[2.5rem] font-bold mb-2 bg-gradient-to-br from-[#0bf] to-[#1a365d] bg-clip-text text-transparent mt-[-1rem] relative animate-[fadeInUp_0.8s_ease_forwards]">
           Tools & Technologies
@@ -94,7 +94,7 @@ useEffect(() => {
         </div>
 
         <div className="relative min-h-[300px] max-[480px]:min-h-0">
-          <div className="max-w-[1200px] mx-auto">
+          <div className="max-w-[1200px]  w-full mx-auto">
             <img
               src={DevopsTools}
               alt="DevOps Tools"

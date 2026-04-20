@@ -59,16 +59,18 @@ const GenaiLearningObjectives = () => {
     <>
       {/* Heading */}
 
-      <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 text-center py-2.5 px-2">
-        Learning{" "}
-        <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
-          Objectives
-        </span>
-      </h2>
-       <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-0 mb-2 rounded"></span>
+      <div className="py-10 text-center">
+        <h2 className="text-[2.8rem]  text-center font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
+          Learning{" "}
+          <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
+            Objectives
+          </span>
+          <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-0 rounded"></span>
+        </h2>
+      </div>
 
       {/* Objectives Section */}
-      <section className="bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] p-6 md:p-12 rounded-2xl max-w-[1200px] mx-auto text-center">
+      <section className="bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] p-6 md:p-12 rounded-2xl max-w-[1200px] w-full mx-auto text-center">
         <h4 className="text-[#0d47a1] text-xs md:text-sm font-semibold uppercase tracking-widest mb-6">
           WHAT YOU WILL LEARN IN GENAI WITH MACHINE LEARNING
         </h4>
@@ -97,14 +99,14 @@ const GenaiLearningObjectives = () => {
       </section>
 
       {/* Learning Path */}
-      <div className="max-w-[1200px] mx-auto bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] rounded-xl mt-8">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 text-center py-2.5 px-2">
+      <div className="max-w-[1200px] w-full mx-auto bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] rounded-xl mt-8 text-center">
+        <h2 className="text-[2.8rem] font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
           Grow With{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
             Skillfyme
           </span>
+          <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-0 rounded"></span>
         </h2>
-        <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
 
         <img
           src={GenAiLp}
@@ -114,16 +116,18 @@ const GenaiLearningObjectives = () => {
       </div>
 
       {/* Alumni Section */}
-      <div className="max-w-[1200px] mx-auto my-8 p-6 bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] rounded-2xl text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-blue-900 text-center py-2.5 px-2">
-          Our Alumni{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-blue-900 bg-clip-text text-transparent">
-            Works At
-          </span>
-        </h2>
+      <div className="max-w-[1200px] w-full mx-auto my-8 p-6 bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] rounded-2xl text-center">
 
-        <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
+        <h2 className="text-[2.8rem] font-extrabold mb-4 bg-gradient-to-br from-[#0bf] to-[#1a365d] text-transparent bg-clip-text relative inline-block">
+           Our Alumni{" "}
+            <span className="bg-gradient-to-br from-[#2196f3] to-[#0d47a1] text-transparent bg-clip-text">
+             Works At
+            </span>
+             <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
 
+          </h2>
+
+       
         <img
           src="/genAIcompanies.png"
           alt="alumni-companies"

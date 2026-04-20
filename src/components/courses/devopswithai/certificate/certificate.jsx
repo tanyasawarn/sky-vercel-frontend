@@ -2,7 +2,7 @@ import React from "react";
 
 const Certificate = () => {
   return (
-    <div className="flex flex-col items-center bg-transparent max-w-[1200px] mx-auto mb-4">
+    <div className="flex flex-col items-center bg-transparent max-w-[1200px] w-full mx-auto mb-4">
       
       {/* Header */}
       <div className="text-center mt-8 mb-5">

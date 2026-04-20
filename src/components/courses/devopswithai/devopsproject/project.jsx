@@ -124,7 +124,7 @@ const Project = () => {
       </h2> */}
       <SectionHeading title=" Capstone Project" />
 
-      <div className="px-6 py-12 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] max-w-[1200px] mx-auto my-8 font-[Segoe_UI,Tahoma,Geneva,Verdana,sans-serif]">
+      <div className="px-6 py-12 bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] max-w-[1200px] w-full mx-auto my-8 font-[Segoe_UI,Tahoma,Geneva,Verdana,sans-serif]">
         <div className="text-center mb-10">
           <p className="text-[#37474f] text-[1.1rem] font-medium mb-6">
             Hands-on experience with real-world AI applications

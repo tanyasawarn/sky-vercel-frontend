@@ -52,7 +52,7 @@ const courseSlug = pathname.split("/").filter(Boolean).pop();
       <span className="block w-[100px] h-[4px] bg-gradient-to-r from-blue-500 to-blue-300 mx-auto mt-2 rounded"></span>
 
       <div className="flex justify-center px-5 md:px-0">
-        <div className="w-full max-w-[1200px] p-8 md:p-5">
+        <div className="w-full max-w-[1200px] w-full p-8 md:p-5">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Program Fee Card */}
             <div className="w-full lg:w-[35%] bg-gradient-to-r from-[#0288d1] to-[#02669d] text-white p-6 rounded-2xl shadow-[0_12px_20px_rgba(25,118,210,0.3)]">
@@ -165,7 +165,7 @@ const courseSlug = pathname.split("/").filter(Boolean).pop();
                     <strong className="text-[#1976d2]">
                       {countryCode === "IN" ? (
                         <>
-                          20<sup>th</sup> April
+                          11<sup>th</sup> May
                         </>
                       ) : (
                         <>

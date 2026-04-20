@@ -8,7 +8,7 @@ import { GiMoneyStack } from "react-icons/gi";
 
 const GenAIInsights = () => {
   return (
-    <div className="max-w-[1200px] mx-auto my-8 px-8 py-8 rounded-[24px] bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative overflow-hidden">
+    <div className="max-w-[1200px] w-full mx-auto my-8 px-8 py-8 rounded-[24px] bg-gradient-to-br from-[#e6f7ff] via-[#f0f9ff] to-[#e3f2fd] shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative overflow-hidden">
 
       {/* Header */}
       <div className="text-center mb-14">

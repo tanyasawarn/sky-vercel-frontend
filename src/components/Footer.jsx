@@ -36,7 +36,7 @@ const Footer = () => {
         <div className="absolute w-[120px] h-[120px] bottom-[-30px] left-[20%] rounded-full bg-blue-300/20 animate-[float_10s_ease-in-out_infinite]" />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto px-5 py-16 text-[#1a365d]">
+      <div className="relative max-w-[1200px] w-full mx-auto px-5 py-16 text-[#1a365d]">
         <div className="flex flex-wrap gap-10 mb-10">
 
           {/* Brand */}

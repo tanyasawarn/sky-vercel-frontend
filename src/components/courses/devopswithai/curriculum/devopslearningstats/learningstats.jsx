@@ -18,7 +18,7 @@ const DevopsLearningStats = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] p-8 text-center max-w-[1200px] mx-auto my-8">
+      <div className="bg-gradient-to-br from-[#f8faff] to-[#f0f5ff] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] p-8 text-center max-w-[1200px] w-full mx-auto my-8">
         {/* Title */}
         <h2 className="text-[2.2rem] font-bold mb-4 mt-[-1rem] text-center opacity-0 animate-[fadeInUp_0.8s_ease_forwards] bg-gradient-to-br from-[#0bf] to-[#1a365d] bg-clip-text text-transparent">
           300+ Hours of Comprehensive Learning
