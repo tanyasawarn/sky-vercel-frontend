@@ -15,6 +15,12 @@ import GenAICourseReview from "./coursereview/genaicoursereview";
 import { genaiFaqs } from "../../common/faq/faqdata";
 import GenaiFaq from "./genaifaq/genaifaq";
 
+export const metadata = {
+  title: "Learn Generative AI with ML Course | Skillfyme",
+  description:
+    "Learn Generative AI,Agentic AI, ML & LLMs with real-world projects and placement support. Become an AI Engineer with Skillfyme.",
+};
+
 const Genaihomepage = () => {
   return (
     <>

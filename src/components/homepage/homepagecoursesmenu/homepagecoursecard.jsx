@@ -70,8 +70,8 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
                   color: COLORS.white,
                 }}
               >
-                {isBestSeller && <Crown className="w-3 h-3" />}
-                {isTrending && <TrendingUp className="w-3 h-3" />}
+                {isBestSeller}
+                {isTrending }
                 {!isBestSeller && !isTrending && <Clock className="w-3 h-3" />}
                 <span>{course.badge}</span>
               </div>

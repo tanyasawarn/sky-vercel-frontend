@@ -19,6 +19,13 @@ import Certificate from "./certificate/certificate"
 import Faq from "@/components/common/faq/faq";
 import { devopsFaqs } from "@/components/common/faq/faqdata";
 
+
+export const metadata = {
+  title: "DevOps with AI Course & Interview Gurantee | Skillfyme",
+  description:
+    "Master DevOps with AI tools, real-time projects & placement support. Become a job-ready DevOps Engineer with Skillfyme.",
+};
+
 const deopshomapage = () => {
   const { userCountry, loading } = useContext(UserContext);
 
