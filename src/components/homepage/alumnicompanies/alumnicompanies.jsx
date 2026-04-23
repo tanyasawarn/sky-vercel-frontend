@@ -397,7 +397,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const companyLogos = [
@@ -421,11 +421,69 @@ const companyLogos = [
 const rowA = companyLogos.slice(0, 8);
 const rowB = companyLogos.slice(7);
 
-/* ── Marquee — untouched logic ── */
+// Recent placements ticker data
+const RECENT_PLACEMENTS = [
+  { role: "Cloud Engineer", company: "Amazon", location: "Bangalore" },
+  { role: "ML Engineer", company: "Uber", location: "Hyderabad" },
+  { role: "DevOps Engineer", company: "Oracle", location: "Remote" },
+  { role: "Data Scientist", company: "Accenture", location: "Pune" },
+  { role: "SRE", company: "IBM", location: "Bangalore" },
+  { role: "AI Engineer", company: "Airbnb", location: "Remote" },
+  { role: "Platform Engineer", company: "Visa", location: "Mumbai" },
+];
+
+/* ── Animated Counter ── */
+const useAnimatedCounter = (target) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const [triggered, setTriggered] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !triggered) {
+          setTriggered(true);
+          let start = 0;
+          const duration = 1500;
+          const increment = target / (duration / 16);
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+              setCount(target);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(start));
+            }
+          }, 16);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, triggered]);
+
+  return { count, ref };
+};
+
+const AnimatedCounter = ({ target, suffix = "" }) => {
+  const { count, ref } = useAnimatedCounter(target);
+  return (
+    <span ref={ref}>
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  );
+};
+
+/* ── Marquee Row ── */
 const MarqueeRow = ({ items, reverse = false, speed = 32 }) => {
   const repeated = [...items, ...items, ...items, ...items];
   return (
-    <div className="cl-marquee-outer" style={{ "--speed": `${speed}s`, "--dir": reverse ? "reverse" : "normal" }}>
+    <div
+      className="cl-marquee-outer"
+      style={{ "--speed": `${speed}s`, "--dir": reverse ? "reverse" : "normal" }}
+    >
       <div className="cl-marquee-track">
         {repeated.map((logo, i) => (
           <LogoTile key={`${logo.name}-${i}`} logo={logo} />
@@ -436,44 +494,65 @@ const MarqueeRow = ({ items, reverse = false, speed = 32 }) => {
 };
 
 const LogoTile = ({ logo }) => (
-  <div className="cl-tile">
-    <img
-      src={logo.url}
-      alt={logo.name}
-      loading="lazy"
-      className="cl-tile-img"
-    />
+  <div className="cl-tile group/tile">
+    {/* Number marker on hover */}
+    <div className="absolute top-1.5 left-2 text-[0.54rem] font-mono font-bold text-[#0a0a0a]/25 tracking-tight opacity-0 group-hover/tile:opacity-100 transition-opacity duration-300">
+      /{String(Math.floor(Math.random() * 99) + 1).padStart(2, "0")}
+    </div>
+
+    {/* Top-right corner bracket — appears on hover */}
+    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#2ba88c] opacity-0 group-hover/tile:opacity-100 transition-opacity duration-300" />
+
+    <img src={logo.url} alt={logo.name} loading="lazy" className="cl-tile-img" />
+
     <span className="cl-tile-label">{logo.name}</span>
   </div>
 );
 
-/* ── Stat block ── */
-const Stat = ({ value, suffix, label, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 16 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-    className="flex flex-col items-start gap-0.5"
-  >
-    <span className="text-3xl font-bold text-gray-900 leading-none">
-      {value}<span className="text-xl font-semibold text-cyan-500">{suffix}</span>
-    </span>
-    <span className="text-[10px] font-semibold tracking-widest uppercase text-gray-400">{label}</span>
-  </motion.div>
-);
+/* ── Recent Placements Ticker ── */
+const PlacementTicker = () => {
+  const doubled = [...RECENT_PLACEMENTS, ...RECENT_PLACEMENTS];
+  return (
+    <div className="cl-ticker-outer">
+      <div className="cl-ticker-track">
+        {doubled.map((p, i) => (
+          <div key={i} className="cl-ticker-item">
+            <div className="w-1 h-1 rounded-full bg-[#2ba88c]" />
+            <span className="text-[0.72rem] font-semibold text-[#0a0a0a]/70">
+              {p.role}
+            </span>
+            <span className="text-[0.68rem] text-[#0a0a0a]/35">@</span>
+            <span className="text-[0.72rem] font-extrabold text-[#0a0a0a]">
+              {p.company}
+            </span>
+            <span className="text-[0.62rem] uppercase tracking-[0.18em] text-[#0a0a0a]/40 font-bold">
+              · {p.location}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const CompanyLogos = () => {
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap");
 
-        .cl-root { font-family: 'Poppins', sans-serif; }
+        .cl-root {
+          font-family: "Raleway", sans-serif;
+        }
 
-        /* ── Marquee CSS-only scroll — untouched ── */
+        /* ── Marquee animation ── */
         @keyframes cl-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
         }
         .cl-marquee-outer {
           overflow: hidden;
@@ -484,148 +563,340 @@ const CompanyLogos = () => {
         }
         .cl-marquee-track {
           display: flex;
-          gap: 12px;
+          gap: 14px;
           width: max-content;
           animation: cl-scroll var(--speed) linear infinite var(--dir);
         }
 
-        /* ── Logo tile ── */
+        /* ── Logo tile — editorial frame style ── */
         .cl-tile {
           position: relative;
           flex-shrink: 0;
-          width: 120px;
-          height: 72px;
-          border-radius: 6px;
-          border: 1px solid #e2e8f0;
+          width: 140px;
+          height: 84px;
+          border-radius: 12px;
+          border: 1px solid rgba(10, 10, 10, 0.08);
           background: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 14px 18px;
+          padding: 18px 22px;
           cursor: default;
-          transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(.16,1,.3,1);
+          transition: border-color 0.4s ease, box-shadow 0.4s ease,
+            transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            background 0.4s ease;
+          box-shadow: 0 1px 3px rgba(10, 10, 10, 0.02);
         }
         .cl-tile:hover {
-          border-color: #67e8f9;
-          box-shadow: 0 4px 20px rgba(6,182,212,0.1);
-          transform: translateY(-3px);
-          background: #ecfeff;
+          border-color: rgba(43, 168, 140, 0.4);
+          box-shadow: 0 12px 32px rgba(10, 10, 10, 0.08),
+            0 0 0 4px rgba(43, 168, 140, 0.05);
+          transform: translateY(-4px);
+          background: #ffffff;
         }
         .cl-tile-img {
           max-width: 100%;
           max-height: 100%;
           object-fit: contain;
-          transition: transform 0.25s ease;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 0.4s ease;
+          filter: grayscale(100%) opacity(0.55);
         }
-        .cl-tile:hover .cl-tile-img { transform: scale(1.06); }
+        .cl-tile:hover .cl-tile-img {
+          transform: scale(1.08);
+          filter: grayscale(0%) opacity(1);
+        }
         .cl-tile-label {
           position: absolute;
-          bottom: -28px;
+          bottom: -26px;
           left: 50%;
-          transform: translateX(-50%);
-          font-size: 0.62rem;
-          font-weight: 600;
-          letter-spacing: 0.06em;
+          transform: translateX(-50%) translateY(-4px);
+          font-size: 0.58rem;
+          font-weight: 700;
+          letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #0891b2;
+          color: #2ba88c;
           white-space: nowrap;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 0.2s ease;
+          transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .cl-tile:hover .cl-tile-label { opacity: 1; }
+        .cl-tile:hover .cl-tile-label {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
 
-        /* ── Edge fades — matched to bg-gray-50 ── */
+        /* ── Edge fades ── */
         .cl-fade-left {
-          position: absolute; left: 0; top: 0; bottom: 0; width: 80px;
-          background: linear-gradient(to right, #f9fafb, transparent);
-          pointer-events: none; z-index: 10;
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100px;
+          background: linear-gradient(to right, #fafaf7 20%, transparent);
+          pointer-events: none;
+          z-index: 10;
         }
         .cl-fade-right {
-          position: absolute; right: 0; top: 0; bottom: 0; width: 80px;
-          background: linear-gradient(to left, #f9fafb, transparent);
-          pointer-events: none; z-index: 10;
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 100px;
+          background: linear-gradient(to left, #fafaf7 20%, transparent);
+          pointer-events: none;
+          z-index: 10;
         }
 
-        /* ── Ticker dot blink ── */
-        @keyframes cl-blink {
-          0%,100% { opacity:1; transform:scale(1); }
-          50%      { opacity:0.4; transform:scale(0.8); }
+        /* ── Recent placements ticker ── */
+        @keyframes cl-ticker-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
         }
-        .cl-blink { animation: cl-blink 1.6s ease-in-out infinite; }
+        .cl-ticker-outer {
+          overflow: hidden;
+          width: 100%;
+        }
+        .cl-ticker-track {
+          display: flex;
+          gap: 28px;
+          width: max-content;
+          animation: cl-ticker-scroll 45s linear infinite;
+        }
+        .cl-ticker-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+
+        /* ── Blink animation ── */
+        @keyframes cl-blink {
+          0%,
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(0.85);
+          }
+        }
+        .cl-blink {
+          animation: cl-blink 1.6s ease-in-out infinite;
+        }
+
+        /* ── Grid fade-in for stat cards ── */
+        @keyframes cl-fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
         @media (max-width: 640px) {
-          .cl-tile { width: 96px; height: 58px; padding: 10px 12px; }
+          .cl-tile {
+            width: 108px;
+            height: 68px;
+            padding: 12px 14px;
+            border-radius: 10px;
+          }
+          .cl-fade-left,
+          .cl-fade-right {
+            width: 50px;
+          }
         }
       `}</style>
 
-      {/* bg-gray-50 — main section background */}
-      <section className="cl-root relative w-full bg-gray-50 py-1 md:py-20 lg:py-24 px-5 overflow-hidden">
+      <section className="cl-root relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28">
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none opacity-[0.35]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(10,10,10,0.04) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(10,10,10,0.04) 1px, transparent 1px)
+            `,
+            backgroundSize: "48px 48px",
+            maskImage:
+              "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          }}
+        />
 
-        <div className="relative max-w-[1280px] mx-auto">
+        {/* Ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full bg-[#2ba88c] opacity-[0.035] blur-[130px] pointer-events-none" />
 
+        <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
           {/* ── HEADER ── */}
-  
-            {/* Left — headline + subline */}
-            <div className="max-w-xl mx-auto flex flex-col items-center text-center">
+          <div className="mb-10 sm:mb-14 md:mb-16">
+            <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
+              {/* Left: Title block */}
+              <div className="col-span-12 lg:col-span-7">
+                <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
+                  <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
+                  <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                    Placement Record
+                  </span>
+                </div>
 
-              <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 leading-tight tracking-tight mb-1">
-                <span className="text-cyan-600 font-semibold">Our Alumni Works At</span>
-              </h2>
+                <h2
+                  className="text-[clamp(1.85rem,4.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.02em] mb-4 sm:mb-5 text-[#0a0a0a]"
+                  style={{ fontWeight: 800 }}
+                >
+                  Where our alumni
+                  <br />
+                  <span className="text-[#0a0a0a]/35">build the future.</span>
+                </h2>
 
-              <p className="text-sm text-gray-500 font-normal leading-relaxed">
-                Where industry giants shape tomorrow's innovators
-              </p>
+                <p className="max-w-[520px] text-[0.95rem] sm:text-[1.05rem] lg:text-[1.1rem] text-[#0a0a0a]/65 leading-[1.65] font-light">
+                  From global tech giants to breakout startups — our learners ship production code at companies shaping the industry. This is a live snapshot of where Skillfyme graduates land.
+                </p>
+              </div>
+
+              {/* Right: Placement stats */}
+              <div className="col-span-12 lg:col-span-5 flex lg:justify-end">
+                <div className="flex gap-6 sm:gap-10 pt-2">
+                  <div>
+                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#2ba88c]">
+                      <AnimatedCounter target={200} suffix="+" />
+                    </div>
+                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
+                      Partners
+                    </div>
+                  </div>
+                  {/* <div>
+                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#0a0a0a]">
+                      <AnimatedCounter target={4200} suffix="+" />
+                    </div>
+                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
+                      Placed
+                    </div>
+                  </div> */}
+                  {/* <div>
+                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#0a0a0a]">
+                      <AnimatedCounter target={28} suffix=" LPA" />
+                    </div>
+                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
+                      Highest CTC
+                    </div>
+                  </div> */}
+                </div>
+              </div>
             </div>
 
-          
+            {/* Thin divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "left" }}
+              className="mt-10 sm:mt-14 h-[1px] bg-gradient-to-r from-[#0a0a0a]/20 via-[#0a0a0a]/5 to-transparent"
+            />
+          </div>
 
-          {/* Thin rule */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: "left" }}
-            className="mb-10 h-px bg-gradient-to-r from-cyan-300 via-cyan-100 to-transparent"
-          />
-
-          {/* ── MARQUEE — untouched ── */}
+          {/* ── MARQUEE CONTAINER — with frame ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="cl-fade-left" />
-            <div className="cl-fade-right" />
+            {/* Corner brackets */}
+            <div className="absolute -top-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tl-2xl" />
+            <div className="absolute -top-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tr-2xl" />
+            <div className="absolute -bottom-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-bl-2xl" />
+            <div className="absolute -bottom-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-br-2xl" />
 
-            <div className="mb-3">
-              <MarqueeRow items={rowA} reverse={false} speed={28} />
-            </div>
-            <div>
-              <MarqueeRow items={rowB} reverse={true} speed={34} />
+            <div className="relative bg-white border border-[#0a0a0a]/8 rounded-2xl shadow-[0_4px_20px_rgba(10,10,10,0.04)] overflow-hidden">
+              {/* Header strip — document-style */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#0a0a0a]/8 bg-[#f5f5f0]/60">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-[#2ba88c] cl-blink" />
+                    <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
+                    <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
+                  </div>
+                  <div className="h-4 w-[1px] bg-[#0a0a0a]/15 hidden sm:block" />
+                  <span className="hidden sm:inline text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#0a0a0a]/55 font-bold">
+                    Partner Directory / Live
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="hidden sm:flex items-center gap-2 text-[0.6rem] uppercase tracking-[0.22em] text-[#0a0a0a]/45 font-bold">
+                    <span>
+                      {companyLogos.length} of <AnimatedCounter target={200} />+
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
+                    <span className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#2ba88c] font-bold">
+                      Syncing
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Marquee zone */}
+              <div className="relative py-8 sm:py-10 md:py-12 px-2">
+                <div className="cl-fade-left" />
+                <div className="cl-fade-right" />
+
+                <div className="mb-10 sm:mb-12">
+                  <MarqueeRow items={rowA} reverse={false} speed={38} />
+                </div>
+                <div>
+                  <MarqueeRow items={rowB} reverse={true} speed={44} />
+                </div>
+              </div>
+
+              {/* Footer strip with recent placements ticker */}
+              <div className="border-t border-[#0a0a0a]/8 bg-[#f5f5f0]/60">
+                <div className="flex items-center">
+                  {/* Ticker label */}
+                  <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 border-r border-[#0a0a0a]/10 bg-[#0a0a0a]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
+                      <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#2ba88c] font-bold whitespace-nowrap">
+                        Recent Placements
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Ticker content */}
+                  <div className="flex-1 overflow-hidden py-3 sm:py-4">
+                    <PlacementTicker />
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          {/* ── Footer strip ── */}
+          {/* ── Bottom info strip ── */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
-            className="mt-10 flex items-center justify-center gap-3"
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6"
           >
-            {/* bg-cyan-50 — small highlight dots */}
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cyan-50">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            </span>
-            <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-gray-400">
-              200+ partner companies & growing
-            </span>
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-cyan-50">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            </span>
-          </motion.div>
+          
 
+        
+          </motion.div>
         </div>
       </section>
     </>

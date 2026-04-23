@@ -146,509 +146,382 @@
 // ----------------------------------------------New Design -----------------------------------------------------------------------------------------
 
 
-"use client";
+
+ "use client";
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowUpRight, Play, Check } from "lucide-react";
 
 const slides = [
   {
     id: "01",
-    tag: "DevOps & Cloud Engineering",
-    eyebrow: "Master Course · 120+ Hours",
-    title: "DevOps With AI",
-    desc: "Master CI/CD automation, Kubernetes, Terraform, and AI-driven infrastructure. Build production-grade pipelines trusted by 12,000+ engineers.",
+    tag: "DevOps & Cloud",
+    title: "DevOps With AI Master Course",
+    desc: "Automate infrastructure with intelligent pipelines. Master the intersection of LLMs and CI/CD. Learn to build, ship, and scale production systems with Docker, Kubernetes, Terraform, and AI-driven automation — guided by engineers from top-tier companies.",
     img: "https://cdn.jsdelivr.net/gh/tanyasawarn/Website-Repo@main/Devops_Bg.png",
     link: "/courses/devops-with-ai-masters-program",
-    reviewLink: "https://www.youtube.com/watch?v=TrW1w9a-V7k&list=PLsNEcVckmpG7azHEQrCNmcHSbylRa-DwS",
-    accent: "#0EA5E9",
-    stats: [
-      { label: "Students Enrolled", value: "5K+" },
-      { label: "Avg. Salary Hike", value: "68%" },
-      { label: "Placement Rate", value: "93%" },
-    ],
-    skills: ["Docker", "Kubernetes", "Terraform", "Jenkins", "AWS", "AIOps"],
-    features: [
-      "CI/CD pipelines with Jenkins, GitHub Actions & GitLab",
-      "Docker & Kubernetes (Pods, Deployments, Service Mesh)",
-      "Infrastructure as Code with Terraform & Ansible",
-      "GitOps with ArgoCD & FluxCD",
-      "Monitoring with Prometheus, Grafana & ELK stack",
-      "AI-driven DevOps (AIOps & self-healing systems)",
-    ],
-    cohort: "April 27, 2026",
+    reviewLink:
+      "https://www.youtube.com/watch?v=TrW1w9a-V7k&list=PLsNEcVckmpG7azHEQrCNmcHSbylRa-DwS",
+  modules: [
+  { num: "01", title: "DevOps Fundamentals", topics: "Git · IaC · Microservices · DevSecOps" },
+  { num: "02", title: "CI/CD & Automation", topics: "Jenkins · GitHub Actions · GitLab CI" },
+  { num: "03", title: "Docker & Kubernetes", topics: "Containers · Orchestration · Helm · GitOps" },
+  { num: "04", title: "Cloud & Deployment", topics: "AWS · Azure · Serverless · Scaling" },
+  { num: "05", title: "Infrastructure as Code", topics: "Terraform · Ansible · Modules · Workspaces" },
+  { num: "06", title: "AI in DevOps (AIOps)", topics: "Automation · Prediction · Self-Healing" },
+],
   },
   {
     id: "02",
-    tag: "Generative AI & Machine Learning",
-    eyebrow: "Master Course · 140+ Hours",
-    title: "GenAI With ML",
-    desc: "From RAG pipelines to fine-tuning LLMs. Build and deploy real-world AI agents, vector databases, and production-ready ML systems.",
+    tag: "Machine Learning",
+    title: "GenAI With ML Master Course",
+    desc: "From RAG architectures to Fine-tuning. Build production-ready AI agents from scratch. Master LLMs, vector databases, and deployment pipelines through real industry projects. Learn the full stack of modern GenAI — from foundational math to agent orchestration.",
     img: "https://cdn.jsdelivr.net/gh/tanyasawarn/Website-Repo@main/genaiwithmlbanner.png",
     link: "/courses/genai-with-ml-masters-program",
     reviewLink: "https://m.youtube.com/@Skillfyme/videos",
-    accent: "#F97316",
-    stats: [
-      { label: "Students Enrolled", value: "1K+" },
-      { label: "Projects Built", value: "30+" },
-      { label: "Industry Mentors", value: "15+" },
+    modules: [
+      { num: "01", title: "Python & Math for ML", topics: "NumPy · Pandas · Linear Algebra" },
+      { num: "02", title: "Machine Learning Foundations", topics: "Regression · Trees · Ensembles" },
+      { num: "03", title: "Deep Learning & Neural Nets", topics: "PyTorch · CNNs · Transformers" },
+      { num: "04", title: "LLMs & Prompt Engineering", topics: "GPT · Claude · LangChain · LlamaIndex" },
+      { num: "05", title: "RAG & Vector Databases", topics: "Pinecone · Chroma · Embeddings" },
+      { num: "06", title: "Fine-tuning & Agent Deployment", topics: "LoRA · PEFT · Production Agents" },
     ],
-    skills: ["LangChain", "Agentic AI", "RAG", "PyTorch", "HuggingFace", "MLflow"],
-    features: [
-      "Python, Statistics & Data Analysis foundations",
-      "Machine Learning (Regression, Classification, Clustering)",
-      "Deep Learning with CNNs, LSTMs & Neural Networks",
-      "NLP (NER, Sentiment Analysis, Transformers)",
-      "LLMs, RAG pipelines & Vector Databases",
-      "Agentic AI & multi-agent systems (LangChain, CrewAI)",
-    ],
-    cohort: "May 11, 2026",
   },
 ];
 
-const DURATION = 7000;
-
-function hexToRgb(hex) {
-  return [
-    parseInt(hex.slice(1, 3), 16),
-    parseInt(hex.slice(3, 5), 16),
-    parseInt(hex.slice(5, 7), 16),
-  ].join(",");
-}
-
-export default function Hero() {
+const Hero = () => {
   const [active, setActive] = useState(0);
-  const [prev, setPrev] = useState(null);
-  const [progress, setProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [animKey, setAnimKey] = useState(0);
+  const [progress, setProgress] = useState(0);
   const router = useRouter();
-  const rafRef = useRef(null);
-  const timerRef = useRef(null);
-  const startRef = useRef(null);
+  const intervalRef = useRef(null);
 
-  const goTo = (idx) => {
-    if (idx === active) return;
-    setPrev(active);
-    setActive(idx);
-    setAnimKey((k) => k + 1);
-    setProgress(0);
-    setTimeout(() => setPrev(null), 900);
-  };
-
-  useEffect(() => { setMounted(true); }, []);
+  const DURATION = 9000;
 
   useEffect(() => {
-    if (!mounted) return;
+    setMounted(true);
+    startTimer();
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
+  useEffect(() => {
     setProgress(0);
-    startRef.current = performance.now();
-    const tick = (now) => {
-      const p = Math.min(((now - startRef.current) / DURATION) * 100, 100);
-      setProgress(p);
-      if (p < 100) rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-    timerRef.current = setTimeout(() => goTo((active + 1) % slides.length), DURATION);
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      clearTimeout(timerRef.current);
-    };
-  }, [active, mounted]);
+    const start = Date.now();
+    const t = setInterval(() => {
+      const pct = Math.min(((Date.now() - start) / DURATION) * 100, 100);
+      setProgress(pct);
+    }, 50);
+    return () => clearInterval(t);
+  }, [active]);
+
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setActive((p) => (p + 1) % slides.length);
+    }, DURATION);
+  };
+
+  const changeSlide = (i) => {
+    setActive(i);
+    startTimer();
+  };
 
   if (!mounted) return null;
-
-  const s = slides[active];
-  const rgb = hexToRgb(s.accent);
+  const current = slides[active];
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
-
-        .hr-root * { box-sizing: border-box; margin: 0; padding: 0; }
-        .hr-root { font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
-        .hrc { font-family: 'Barlow Condensed', sans-serif; }
-
-        .hbg {
-          position: absolute; inset: 0;
-          background-size: cover; background-position: center 30%;
-          transition: opacity 1s cubic-bezier(0.4,0,0.2,1), transform 1.6s cubic-bezier(0.4,0,0.2,1);
-          will-change: opacity, transform;
-        }
-        .hbg-in  { opacity: 1; transform: scale(1);    z-index: 2; }
-        .hbg-out { opacity: 0; transform: scale(1.04); z-index: 1; }
-        .hbg-off { opacity: 0; transform: scale(1.04); z-index: 0; }
-
-        @keyframes sli { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:translateX(0); } }
-        @keyframes rsi { from { opacity:0; transform:translateY(10px);  } to { opacity:1; transform:translateY(0); } }
-        
-        /* Smooth continuous fade-in for features - no sharp edges */
-        @keyframes fti { 
-          0% { opacity: 0; transform: translateY(8px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .si  { animation: sli 0.52s cubic-bezier(0.22,1,0.36,1) both; }
-        .ri  { animation: rsi 0.52s cubic-bezier(0.22,1,0.36,1) both; }
-        .fti { 
-          animation: fti 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) both; 
-          will-change: opacity, transform;
-        }
-
-        .d0 { animation-delay:0s; }    .d1 { animation-delay:.07s; }
-        .d2 { animation-delay:.14s; }  .d3 { animation-delay:.22s; }
-        .d4 { animation-delay:.32s; }  .d5 { animation-delay:.44s; }
-
-        .chip {
-          padding: 4px 11px; border-radius: 3px;
-          font-size: .66rem; font-weight: 500; letter-spacing: .05em;
-          border: 1px solid rgba(255,255,255,.1);
-          color: rgba(255,255,255,.48);
-          background: rgba(255,255,255,.035);
-          white-space: nowrap;
-          transition: border-color .2s, color .2s;
-        }
-        .chip:hover { border-color: rgba(255,255,255,.22); color: rgba(255,255,255,.75); }
-
-        .btn-enroll {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 11px 28px; border-radius: 4px; border: none;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .81rem; font-weight: 500; letter-spacing: .05em;
-          color: #fff; cursor: pointer;
-          transition: filter .2s, transform .2s;
-        }
-        .btn-enroll:hover { filter: brightness(1.1); transform: translateY(-2px); }
-
-        .btn-trailer {
-          display: inline-flex; align-items: center; gap: 8px;
-          padding: 11px 22px; border-radius: 4px;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .81rem; font-weight: 400; letter-spacing: .04em;
-          background: transparent; border: 1px solid rgba(255,255,255,.13);
-          color: rgba(255,255,255,.6); cursor: pointer; text-decoration: none;
-          transition: background .2s, border-color .2s, color .2s, transform .2s;
-        }
-        .btn-trailer:hover {
-          background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.25);
-          color: rgba(255,255,255,.9); transform: translateY(-2px);
-        }
-
-        .stab {
-          position: relative; flex: 1;
-          display: flex; align-items: center; gap: 16px;
-          padding: 15px 26px; background: none; border: none;
-          border-right: 1px solid rgba(255,255,255,.05);
-          cursor: pointer; text-align: left; overflow: hidden;
-          transition: background .25s;
-        }
-        .stab:last-child { border-right: none; }
-        .stab:hover { background: rgba(255,255,255,.025); }
-
-        @media (max-width: 960px) { .rp { display: none !important; } }
-        @media (max-width: 640px) {
-          .h-stats  { display: none !important; }
-          .h-tabbar { display: none !important; }
-          .h-mdots  { display: flex !important; }
-          .hp { padding: 52px 20px 0 !important; }
-        }
-        @media (min-width: 641px) { .h-mdots { display: none !important; } }
-      `}</style>
-
-      <section
-        className="hr-root"
-        aria-label={`${s.tag} — ${s.title} Master Course`}
+    <section
+      className="relative min-h-screen w-full bg-[#0a0a0a] text-white overflow-hidden"
+      style={{ fontFamily: "'Raleway', sans-serif" }}
+    >
+      {/* Grain Texture */}
+      <div
+        className="absolute inset-0 z-[2] pointer-events-none opacity-[0.12] mix-blend-overlay"
         style={{
-          position: "relative", width: "100%",
-          minHeight: "100svh", maxHeight: 900,
-          background: "#05080F", color: "#fff",
-          overflow: "hidden", display: "flex", flexDirection: "column",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`,
         }}
-      >
-        {/* Backgrounds */}
-        {slides.map((sl, i) => (
-          <div key={sl.id}
-            className={`hbg ${i === active ? "hbg-in" : i === prev ? "hbg-out" : "hbg-off"}`}
-            style={{ backgroundImage: `url(${sl.img})`, filter: "brightness(0.28) saturate(0.8)" }}
+      />
+
+      {/* Background Images */}
+      <div className="absolute inset-0 z-[1]">
+        {slides.map((s, i) => (
+          <div
+            key={s.id}
+            className={`absolute inset-0 transition-all duration-[2000ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              i === active ? "opacity-100 scale-100" : "opacity-0 scale-[1.08]"
+            }`}
+            style={{
+              backgroundImage: `url(${s.img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "brightness(0.3) saturate(0.7) contrast(1.15)",
+            }}
           />
         ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/30" />
+        <div className="absolute -bottom-40 -left-40 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-[#7dd3c0] opacity-[0.06] blur-[120px]" />
+        <div className="absolute -top-40 -right-40 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full bg-[#a4b8ff] opacity-[0.05] blur-[100px]" />
+      </div>
 
-        {/* Overlays */}
-        <div style={{ position:"absolute", inset:0, zIndex:3, pointerEvents:"none",
-          background:"linear-gradient(108deg,rgba(5,8,15,.98) 0%,rgba(5,8,15,.72) 44%,rgba(5,8,15,.15) 100%)" }} />
-        <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"40%", zIndex:3, pointerEvents:"none",
-          background:"linear-gradient(to top,rgba(5,8,15,1) 0%,transparent 100%)" }} />
-        <div style={{ position:"absolute", inset:0, zIndex:3, pointerEvents:"none",
-          background:`radial-gradient(ellipse 48% 58% at 0% 100%,rgba(${rgb},.1) 0%,transparent 60%)`,
-          transition:"background 1s ease" }} />
-
-        {/* Top accent line */}
-        <div style={{
-          position:"absolute", top:0, left:0, right:0, height:2, zIndex:6,
-          background:`linear-gradient(90deg,${s.accent} 0%,transparent 38%)`,
-          transition:"background .8s ease",
-        }} />
-
-        {/* ── Content ── */}
-        <div className="hp" style={{
-          position:"relative", zIndex:5, flex:1,
-          display:"flex", alignItems:"center",
-          maxWidth:1380, margin:"0 auto", width:"100%",
-          padding:"clamp(60px,9vw,100px) clamp(24px,5vw,72px) 0",
-          gap:"clamp(28px,4vw,60px)",
-        }}>
-
-          {/* Left */}
-          <div style={{ flex:"1 1 auto", maxWidth:600 }}>
-
-            {/* Eyebrow row */}
-            <div key={`ey-${animKey}`} className="si d0"
-              style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}
-            >
-              <span className="hrc" style={{
-                fontSize:"clamp(.9rem,1.4vw,1.05rem)", fontWeight:700,
-                color:s.accent, letterSpacing:".08em", lineHeight:1,
-                transition:"color .6s ease",
-              }}>{s.id}</span>
-              <span style={{ width:26, height:1, background:`rgba(${rgb},.45)` }} />
-              <span style={{
-                fontSize:".66rem", fontWeight:500,
-                letterSpacing:".18em", textTransform:"uppercase",
-                color:"rgba(255,255,255,.38)",
-              }}>{s.eyebrow}</span>
+      {/* Top Bar */}
+      <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pt-5 sm:pt-6">
+        <div className="flex justify-between items-center border-b border-white/10 pb-4 sm:pb-5 gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="relative flex-shrink-0">
+              <div className="w-2 h-2 rounded-full bg-emerald-400" />
+              <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
+            <span className="text-[0.62rem] sm:text-[0.72rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/70 font-semibold truncate">
+              Applications open · Limited seats
+            </span>
+          </div>
+          <div className="hidden md:flex items-center gap-4 text-[0.7rem] uppercase tracking-[0.18em] text-white/50 font-medium flex-shrink-0">
+            <span>Skillfyme Masters</span>
+            <span className="text-white/30">/</span>
+            <span className="text-[#7dd3c0]">{current.id} of 0{slides.length}</span>
+          </div>
+        </div>
+      </div>
 
-            {/* H1 */}
-            <h1 key={`t-${animKey}`} className="hrc si d1"
-              style={{
-                fontSize:"clamp(3.2rem,6.8vw,6rem)", fontWeight:800,
-                lineHeight:.95, letterSpacing:".01em",
-                textTransform:"uppercase", color:"#fff", marginBottom:6,
-              }}
-            >{s.title}</h1>
-
-            <div key={`sub-${animKey}`} className="hrc si d2"
-              style={{
-                fontSize:"clamp(1.5rem,3vw,2.4rem)", fontWeight:600,
-                letterSpacing:".06em", textTransform:"uppercase",
-                color:s.accent, marginBottom:"1.4rem",
-                transition:"color .6s ease",
-              }}
-            >Master Course</div>
-
-            {/* Desc */}
-            <p key={`d-${animKey}`} className="ri d3 text-cyan-600"
-              style={{
-                fontSize:"clamp(.85rem,1.15vw,.94rem)",
-                 lineHeight:1.75,
-                maxWidth:460, fontWeight:300, marginBottom:"1.4rem",
-              }}
-            >{s.desc}</p>
-
-            {/* Chips */}
-            <div key={`ch-${animKey}`} className="ri d3"
-              style={{ display:"flex", flexWrap:"wrap", gap:6, marginBottom:"1.8rem" }}
+      {/* Main Content */}
+      <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pt-8 sm:pt-12 md:pt-16 lg:pt-20 pb-36 sm:pb-32">
+        <div className="grid grid-cols-12 gap-6 lg:gap-10">
+          {/* LEFT: Title & CTAs */}
+          <div className="col-span-12 lg:col-span-7">
+            {/* Tag */}
+            <div
+              key={`tag-${active}`}
+              className="inline-flex items-center gap-3 mb-5 sm:mb-7 animate-[slideUp_0.7s_cubic-bezier(0.22,1,0.36,1)_both]"
             >
-              {s.skills.map((sk) => (
-                <span key={sk} className="chip">{sk}</span>
-              ))}
-            </div>
-
-            {/* CTAs */}
-            <div key={`cta-${animKey}`} className="ri d4"
-              style={{ display:"flex", flexWrap:"wrap", gap:10, alignItems:"center", marginBottom:"2rem" }}
-            >
-              <button className="btn-enroll"
-                onClick={() => router.push(s.link)}
-                style={{
-                  background: s.accent,
-                  boxShadow:`0 4px 22px rgba(${rgb},.28)`,
-                }}
-              >
-                Enroll Now
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-
-              <a href={s.reviewLink} target="_blank" rel="noopener noreferrer" className="btn-trailer">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <circle cx="6" cy="6" r="5.2" stroke="currentColor" strokeWidth="1.1"/>
-                  <polygon points="4.8,3.6 9.6,6 4.8,8.4" fill="currentColor"/>
-                </svg>
-                Watch Trailer
-              </a>
-
-              <span style={{ fontSize:".7rem", color:"rgba(255,255,255,.28)", display:"flex", alignItems:"center", gap:5 }}>
-                <svg width="10" height="10" viewBox="0 0 10 10">
-                  <path d="M5 .8L6.2 3.7H9.3L6.8 5.5 7.7 8.5 5 6.8 2.3 8.5 3.2 5.5.7 3.7H3.8Z" fill="rgba(255,195,55,.7)"/>
-                </svg>
-                4.8/5 Rating
+              <div className="h-[1px] w-8 sm:w-10 bg-[#7dd3c0]" />
+              <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#7dd3c0] font-bold">
+                {current.tag}
               </span>
             </div>
 
-            {/* Stats */}
-            <div key={`st-${animKey}`} className="ri d5 h-stats"
-              style={{ display:"flex", paddingTop:18, borderTop:"1px solid rgba(255,255,255,.07)" }}
+            {/* Title */}
+            <h1
+              key={`title-${active}`}
+              className="text-[clamp(2rem,5.8vw,4.8rem)] font-extrabold leading-[1.02] tracking-[-0.02em] mb-5 sm:mb-6 animate-[slideUp_0.9s_cubic-bezier(0.22,1,0.36,1)_0.1s_both]"
+              style={{ fontWeight: 800 }}
             >
-              {s.stats.map((st, i) => (
-                <div key={st.label} style={{
-                  flex:1, paddingLeft: i===0 ? 0 : 20, paddingRight:20,
-                  borderRight: i < s.stats.length-1 ? "1px solid rgba(255,255,255,.07)" : "none",
-                }}>
-                  <div className="hrc" style={{
-                    fontSize:"clamp(1.3rem,2.2vw,1.7rem)", fontWeight:700,
-                    color:"#fff", lineHeight:1, marginBottom:5, letterSpacing:".02em",
-                  }}>{st.value}</div>
-                  <div style={{
-                    fontSize:".61rem", color:"rgba(255,255,255,.3)",
-                    letterSpacing:".08em", textTransform:"uppercase",
-                  }}>{st.label}</div>
+              {current.title}
+            </h1>
+
+            {/* Description */}
+            <p
+              key={`desc-${active}`}
+              className="max-w-[560px] text-[0.95rem] sm:text-[1.05rem] lg:text-[1.1rem] text-white/65 mb-6 sm:mb-7 leading-[1.65] font-light animate-[slideUp_0.9s_cubic-bezier(0.22,1,0.36,1)_0.25s_both]"
+            >
+              {current.desc}
+            </p>
+
+            {/* CTAs */}
+            <div
+              key={`cta-${active}`}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10 animate-[slideUp_0.9s_cubic-bezier(0.22,1,0.36,1)_0.4s_both]"
+            >
+              <button
+                onClick={() => router.push(current.link)}
+                className="group relative bg-white text-[#0a0a0a] px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-[0.9rem] sm:text-[0.95rem] flex items-center justify-center gap-3 overflow-hidden transition-transform hover:scale-[1.02]"
+              >
+                <span className="relative z-10 tracking-wide">Get Started</span>
+                <ArrowUpRight
+                  size={18}
+                  className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#7dd3c0] to-[#a4e8d8] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              </button>
+
+              <a
+                href={current.reviewLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-6 sm:px-7 py-3.5 sm:py-4 rounded-full border border-white/20 flex items-center justify-center gap-3 backdrop-blur-md hover:bg-white/5 hover:border-white/40 transition-all"
+              >
+                <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#7dd3c0] group-hover:text-[#0a0a0a] transition-all">
+                  <Play size={10} fill="currentColor" className="ml-[1px]" />
                 </div>
-              ))}
+                <span className="text-[0.9rem] sm:text-[0.95rem] font-semibold tracking-wide">Watch Trailer</span>
+              </a>
+            </div>
+
+            {/* Trust Row */}
+            <div
+              key={`trust-${active}`}
+              className="flex flex-wrap gap-x-5 sm:gap-x-8 gap-y-2.5 items-center text-[0.72rem] sm:text-[0.78rem] text-white/50 animate-[slideUp_0.9s_cubic-bezier(0.22,1,0.36,1)_0.55s_both]"
+            >
+              <div className="flex items-center gap-2">
+                <Check size={14} className="text-[#7dd3c0] flex-shrink-0" strokeWidth={3} />
+                <span className="font-medium">Live Mentorship</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check size={14} className="text-[#7dd3c0] flex-shrink-0" strokeWidth={3} />
+                <span className="font-medium">Industry Projects</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check size={14} className="text-[#7dd3c0] flex-shrink-0" strokeWidth={3} />
+                <span className="font-medium">Placement Support</span>
+              </div>
             </div>
           </div>
 
-          {/* Right panel */}
-          <aside className="rp" aria-label="Course details" style={{
-            flex:"0 0 auto", width:"clamp(258px,27vw,312px)",
-            background:"rgba(255,255,255,.034)",
-            border:"1px solid rgba(255,255,255,.08)",
-            borderRadius:8, padding:"22px 20px",
-            backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)",
-          }}>
-            {/* Rating */}
-            <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16 }}>
-              <div style={{ display:"flex", gap:2 }}>
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="11" height="11" viewBox="0 0 11 11">
-                    <path d="M5.5.9 6.8 4H10L7.4 5.9l1 3.2L5.5 7.4l-2.9 1.7 1-3.2L1 4h3.2Z" fill="rgba(255,190,45,.88)"/>
-                  </svg>
-                ))}
-              </div>
-              <span style={{ fontSize:".7rem", color:"rgba(255,255,255,.36)" }}>4.8 · Student reviews</span>
-            </div>
+          {/* RIGHT: Curriculum Card */}
+          <div className="col-span-12 lg:col-span-5">
+            <div
+              key={`curr-${active}`}
+              className="relative animate-[slideUp_1s_cubic-bezier(0.22,1,0.36,1)_0.3s_both]"
+            >
+              {/* Decorative corner */}
+              <div className="absolute -top-3 -left-3 w-12 sm:w-16 h-12 sm:h-16 border-t-2 border-l-2 border-[#7dd3c0]/40 pointer-events-none" />
+              <div className="absolute -bottom-3 -right-3 w-12 sm:w-16 h-12 sm:h-16 border-b-2 border-r-2 border-[#7dd3c0]/40 pointer-events-none" />
 
-            <p style={{
-              fontSize:".58rem", letterSpacing:".16em",
-              textTransform:"uppercase", color:"rgba(255,255,255,.24)",
-              marginBottom:12,
-            }}>Curriculum highlights</p>
-
-            {/* 
-              SMOOTH FEATURE ANIMATION - No sharp edges
-              All features fade in gently with a subtle upward motion
-              Same sequential timing but each entry is smooth and continuous
-            */}
-            <div style={{ display:"flex", flexDirection:"column" }}>
-              {s.features.map((f, i) => {
-                // Calculate staggered delay: 0s, 0.08s, 0.16s, 0.24s, 0.32s, 0.40s
-                const delay = i * 0.08;
-                return (
-                  <div 
-                    key={`${active}-${i}`} 
-                    className="fti"
-                    style={{ 
-                      animationDelay: `${delay}s`,
-                      animationFillMode: "both"
-                    }}
-                  >
-                    <div style={{
-                      display:"flex", alignItems:"flex-start", gap:10,
-                      padding:"8px 0",
-                      borderBottom: i < s.features.length - 1
-                        ? "1px solid rgba(255,255,255,.05)" : "none",
-                    }}>
-                      <span className="hrc" style={{
-                        fontSize:".8rem", fontWeight:700, lineHeight:1,
-                        color:"#fff", minWidth:18, marginTop:2, flexShrink:0,
-                        transition:"color .6s ease",
-                      }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span style={{
-                        fontSize:".8rem", color:"#fff",
-                        lineHeight:1.48, fontWeight:300,
-                      }}>{f}</span>
+              <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-6 md:p-8">
+                {/* Card Header */}
+                <div className="flex items-center justify-between mb-5 sm:mb-6 pb-4 sm:pb-5 border-b border-white/10 gap-3">
+                  <div className="min-w-0">
+                    <div className="text-[0.6rem] sm:text-[0.65rem] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-white/40 font-bold mb-1">
+                      What you'll master
+                    </div>
+                    <div className="text-[1.05rem] sm:text-[1.15rem] font-bold tracking-tight">
+                      Core Curriculum
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                  <div className="text-right flex-shrink-0">
+                    <div className="text-[1.75rem] sm:text-[2rem] font-extrabold leading-none text-[#7dd3c0]">
+                      {current.modules.length}
+                    </div>
+                    <div className="text-[0.6rem] sm:text-[0.65rem] uppercase tracking-[0.18em] sm:tracking-[0.2em] text-white/50 font-semibold mt-1">
+                      Modules
+                    </div>
+                  </div>
+                </div>
 
-            <div style={{ borderTop:"1px solid rgba(255,255,255,.07)", margin:"14px 0" }} />
+                {/* Module list */}
+                <div className="space-y-0.5 sm:space-y-1">
+                  {current.modules.map((m, idx) => (
+                    <div
+                      key={`${active}-${idx}`}
+                      className="group flex items-start gap-3 sm:gap-4 p-2.5 sm:p-3 -mx-2.5 sm:-mx-3 rounded-lg hover:bg-white/[0.04] transition-colors cursor-default animate-[fadeIn_0.6s_ease-out_both]"
+                      style={{ animationDelay: `${0.5 + idx * 0.08}s` }}
+                    >
+                      <div className="text-[0.65rem] sm:text-[0.7rem] font-mono font-bold text-[#7dd3c0] pt-[3px] w-6 sm:w-7 tracking-tight flex-shrink-0">
+                        {m.num}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[0.88rem] sm:text-[0.95rem] font-bold tracking-tight mb-0.5 text-white/95 group-hover:text-white transition-colors">
+                          {m.title}
+                        </div>
+                        <div className="text-[0.7rem] sm:text-[0.75rem] text-white/45 font-medium leading-snug">
+                          {m.topics}
+                        </div>
+                      </div>
+                      <ArrowUpRight
+                        size={14}
+                        className="text-white/20 group-hover:text-[#7dd3c0] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all mt-1 flex-shrink-0"
+                      />
+                    </div>
+                  ))}
+                </div>
 
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-              <div>
-                <p style={{
-                  fontSize:".57rem", letterSpacing:".12em",
-                  textTransform:"uppercase", color:"rgba(255,255,255,.24)", marginBottom:3,
-                }}>Next Cohort</p>
-                <p style={{ fontSize:".84rem", color:"#fff", fontWeight:500 }}>{s.cohort}</p>
+                {/* Card footer */}
+                <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-white/10 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-[0.7rem] sm:text-[0.75rem] text-white/50 font-medium min-w-0">
+                    <div className="flex -space-x-1.5 flex-shrink-0">
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#7dd3c0] to-[#4a9d8e] border-2 border-[#0a0a0a]" />
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#a4b8ff] to-[#6b83d8] border-2 border-[#0a0a0a]" />
+                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#f0b880] to-[#c88f5a] border-2 border-[#0a0a0a]" />
+                    </div>
+                    <span className="truncate">+2k enrolled</span>
+                  </div>
+                  <button
+                    onClick={() => router.push(current.link)}
+                    className="text-[0.72rem] sm:text-[0.78rem] font-bold text-[#7dd3c0] hover:text-white flex items-center gap-1.5 transition-colors group flex-shrink-0"
+                  >
+                    Full syllabus
+                    <ArrowUpRight
+                      size={13}
+                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </button>
+                </div>
               </div>
-              <span style={{
-                fontSize:".61rem", padding:"4px 10px", borderRadius:20,
-                background:`rgba(${rgb},.13)`, color:s.accent, fontWeight:500,
-                transition:"background .6s, color .6s",
-              }}>Seats filling fast</span>
             </div>
-          </aside>
+          </div>
         </div>
+      </div>
 
-        {/* Tab bar */}
-        <nav className="h-tabbar" aria-label="Course navigation" style={{
-          position:"relative", zIndex:5, display:"flex",
-          borderTop:"1px solid rgba(255,255,255,.06)",
-          background:"rgba(5,8,15,.9)", backdropFilter:"blur(16px)",
-        }}>
-          {slides.map((sl, i) => {
-            const slRgb = hexToRgb(sl.accent);
-            const on = i === active;
-            return (
-              <button key={sl.id} className="stab" onClick={() => goTo(i)} aria-pressed={on}>
-                {on && (
-                  <div style={{
-                    position:"absolute", top:0, left:0, height:2,
-                    width:`${progress}%`, background:s.accent,
-                    transition:"width .06s linear",
-                  }} />
-                )}
-                <span className="hrc" style={{
-                  fontSize:"clamp(1.5rem,2.5vw,2rem)", fontWeight:700, lineHeight:1, flexShrink:0,
-                  color: on ? sl.accent : "rgba(255,255,255,.14)",
-                  transition:"color .4s ease",
-                }}>{sl.id}</span>
-                <div>
-                  <div style={{
-                    fontSize:".74rem", fontWeight: on ? 500 : 400,
-                    color: on ? "rgba(255,255,255,.88)" : "rgba(255,255,255,.28)",
-                    transition:"color .4s", marginBottom:2,
-                  }}>{sl.tag}</div>
-                  <div style={{
-                    fontSize:".61rem",
-                    color: on ? `rgba(${slRgb},.65)` : "rgba(255,255,255,.16)",
-                    transition:"color .4s", letterSpacing:".04em",
-                  }}>{sl.eyebrow}</div>
+      {/* Bottom Navigation - CENTERED */}
+      <div className="absolute bottom-0 left-0 right-0 z-[10] border-t border-white/10 backdrop-blur-md bg-black/30">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-4 sm:py-5 flex items-center justify-center">
+          <div className="flex gap-2 sm:gap-3 w-full max-w-[640px]">
+            {slides.map((s, i) => (
+              <button
+                key={s.id}
+                onClick={() => changeSlide(i)}
+                className="group flex-1 text-left min-w-0"
+              >
+                <div className="relative h-[2px] bg-white/10 mb-2.5 sm:mb-3 overflow-hidden rounded-full">
+                  <div
+                    className="absolute top-0 left-0 h-full bg-[#7dd3c0] rounded-full"
+                    style={{
+                      width: i === active ? `${progress}%` : i < active ? "100%" : "0%",
+                      transition: i === active ? "width 50ms linear" : "width 300ms ease",
+                    }}
+                  />
+                </div>
+                <div className="flex items-baseline gap-2 sm:gap-2.5">
+                  <span
+                    className={`text-[0.68rem] sm:text-[0.72rem] font-mono font-bold flex-shrink-0 ${
+                      i === active ? "text-[#7dd3c0]" : "text-white/35"
+                    }`}
+                  >
+                    {s.id}
+                  </span>
+                  <span
+                    className={`text-[0.75rem] sm:text-[0.82rem] font-semibold tracking-wide transition-colors truncate ${
+                      i === active ? "text-white" : "text-white/50 group-hover:text-white/80"
+                    }`}
+                  >
+                    {s.tag}
+                  </span>
                 </div>
               </button>
-            );
-          })}
-        </nav>
-
-        {/* Mobile dots */}
-        <div className="h-mdots" style={{
-          position:"relative", zIndex:5, justifyContent:"center", gap:8, padding:"15px 0 20px",
-        }}>
-          {slides.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} aria-label={`Slide ${i+1}`} style={{
-              width: i===active ? 22 : 6, height:6, borderRadius:4,
-              border:"none", cursor:"pointer", padding:0,
-              background: i===active ? s.accent : "rgba(255,255,255,.18)",
-              transition:"all .3s ease",
-            }} />
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap");
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
+    </section>
   );
-}
+};
+
+export default Hero;

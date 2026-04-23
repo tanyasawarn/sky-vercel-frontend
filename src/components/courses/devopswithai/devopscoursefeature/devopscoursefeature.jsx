@@ -71,7 +71,7 @@ const CourseFeatures = () => {
     <>
       <div
         ref={containerRef}
-        className="relative max-w-[1000px] mx-auto px-8 py-16 rounded-[20px] bg-[linear-gradient(135deg,#f8faff_0%,#f0f5ff_100%)] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden"
+        className="relative max-w-[1000px] mx-auto px-8 py-7 mb-2.5 rounded-[20px] bg-[linear-gradient(135deg,#f8faff_0%,#f0f5ff_100%)] shadow-[0_10px_30px_rgba(0,0,0,0.08)] overflow-hidden"
       >
         {/* Title */}
         {/* <h2 className="text-center text-[2.2rem] font-bold mb-12 mt-[-1rem] bg-gradient-to-r from-[#0bf] to-[#1a365d] bg-clip-text text-transparent">

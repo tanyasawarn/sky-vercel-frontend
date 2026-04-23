@@ -720,21 +720,20 @@
 
 // --------------------------------------------new design--------------------------------------------------------------
 
-"use client";
+
+ "use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Users, Trophy, Headphones } from "lucide-react";
+import { ArrowUpRight, Users, Trophy, Headphones, Check } from "lucide-react";
+import { motion } from "framer-motion";
 import EnrollmentForm from "@/components/common/enrollmentform/enrollmentform";
-
-
-
- 
 
 // ================= DATA =================
 
 const FEATURES = [
   {
+    id: "live",
     title: "Live Classes",
     subtitle: "Real-time learning experience",
     icon: "/skillfymefeatureclasses.svg",
@@ -748,6 +747,7 @@ const FEATURES = [
     statLabel: "Monthly Classes",
   },
   {
+    id: "support",
     title: "24/7 Support",
     subtitle: "Never feel stuck",
     icon: "/skillfymefeaturesupport.svg",
@@ -761,6 +761,7 @@ const FEATURES = [
     statLabel: "Response Time",
   },
   {
+    id: "placement",
     title: "Placement Prep",
     subtitle: "Land your dream job",
     icon: "/skillfymefeatureplacements.svg",
@@ -774,6 +775,7 @@ const FEATURES = [
     statLabel: "Placement Rate",
   },
   {
+    id: "handson",
     title: "Hands-On Learning",
     subtitle: "Build real-world skills",
     icon: "/skillfymefeaturehandson.svg",
@@ -793,20 +795,20 @@ const HERO_POINTS = [
   "Industry-recognized certifications upon completion",
   "Access to a vibrant community of peers & mentors",
   "Career guidance from experienced professionals",
-  "Resume Prep & Mock Interviews",
-   "Hands-on projects to build real-world experience",
+  "Resume prep & mock interviews",
+  "Hands-on projects to build real-world experience",
   "Clear direction so you always know what to do next",
 ];
 
 const HERO_STATS = [
-  { value: 5000, suffix: "+", label: "Students", Icon: Users },
-  { value: 93, suffix: "%", label: "Success Rate", Icon: Trophy },
+  { value: 6000, suffix: "+", label: "Students", Icon: Users },
+  { value: 93, suffix: "%", label: "Success", Icon: Trophy },
   { value: 24, suffix: "/7", label: "Support", Icon: Headphones },
 ];
 
 const TRUSTED_COMPANIES = ["Google", "Microsoft", "Amazon", "Netflix", "Adobe"];
 
-// ================= HOOK =================
+// ================= HOOKS =================
 
 const useAnimatedCounter = (target) => {
   const [count, setCount] = useState(0);
@@ -819,7 +821,7 @@ const useAnimatedCounter = (target) => {
         if (entry.isIntersecting && !triggered) {
           setTriggered(true);
           let start = 0;
-          const duration = 1200;
+          const duration = 1400;
           const increment = target / (duration / 16);
 
           const timer = setInterval(() => {
@@ -837,7 +839,6 @@ const useAnimatedCounter = (target) => {
     );
 
     if (ref.current) observer.observe(ref.current);
-
     return () => observer.disconnect();
   }, [target, triggered]);
 
@@ -848,98 +849,157 @@ const AnimatedCounter = ({ target, suffix }) => {
   const { count, ref } = useAnimatedCounter(target);
   return (
     <span ref={ref}>
-      {count}
+      {count.toLocaleString()}
       {suffix}
     </span>
   );
 };
 
-// ================= HEADER =================
-
-// const SectionHeader = () => (
-//   <div className="mb-12">
-//     <p className="text-sm text-cyan-600 font-medium mb-2 text-center lg:text-left">
-//       What We Offer
-//     </p>
-
-//     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-//       <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 text-center lg:text-left">
-//         Transform Your{" "}
-//         <span className="text-cyan-600">Learning Journey</span>
-//       </h2>
-
-//       <p className="text-gray-500 text-sm max-w-md text-center lg:text-right">
-//         Industry-leading features designed to help you learn faster and get hired.
-//       </p>
-//     </div>
-//   </div>
-// );
-
-
-const SectionHeader = () => (
-  <div className="mb-12 text-center mt-0">
-
-    {/* Main heading */}
-    <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 leading-tight">
-      <span className="text-cyan-600">Transform Your Learning Journey</span>
-    </h2>
-
-    {/* Description */}
-    <p className="mt-4 text-gray-500 text-sm md:text-base max-w-2xl mx-auto">
-      Industry-leading features designed to help you learn faster, build real-world skills,
-      and confidently land your dream job.
-    </p>
-
-  </div>
-);
-
 // ================= MAIN =================
 
 const SkillfymeFeatures = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <section className="py-16 px-4 md:px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
+    <section
+      className="relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28"
+      style={{ fontFamily: "'Raleway', sans-serif" }}
+    >
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none opacity-[0.35]"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(10,10,10,0.04) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(10,10,10,0.04) 1px, transparent 1px)
+          `,
+          backgroundSize: "48px 48px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+        }}
+      />
 
-        <SectionHeader />
+      {/* Ambient glow */}
+      <div className="absolute top-0 -left-40 w-[500px] h-[500px] rounded-full bg-[#2ba88c] opacity-[0.04] blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-40 w-[400px] h-[400px] rounded-full bg-[#c88f3a] opacity-[0.04] blur-[110px] pointer-events-none" />
 
-        <div className="flex flex-col xl:flex-row gap-6">
-
-          {/* HERO CARD */}
-          <div className="xl:w-[360px] flex-shrink-0">
-            <div className="h-full flex flex-col justify-between bg-white border border-gray-200 rounded-2xl p-6 md:p-7 hover:border-cyan-200 hover:shadow-xl transition">
-
-              <div>
-                <h3 className="text-2xl font-semibold text-cyan-600">
-                  Your Success,
-                  <br />
-                  <span className="text-cyan-600">Our Mission</span>
-                </h3>
-
-                <p className="text-sm text-gray-500 mt-3">
-                  Join thousands of learners transforming their careers with structured programs.
-                </p>
-
-                <ul className="mt-5 space-y-3">
-                  {HERO_POINTS.map((text, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="w-1.5 h-1.5 mt-2 bg-cyan-500 rounded-full" />
-                      {text}
-                    </li>
-                  ))}
-                </ul>
+      <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
+        {/* SECTION HEADER */}
+        <div className="mb-12 sm:mb-14 md:mb-16">
+          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
+                <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
+                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                  What We Offer
+                </span>
               </div>
 
-              {/* STATS */}
-              <div className="grid grid-cols-3 gap-4 mt-6 pt-5 border-t border-gray-200">
-                {HERO_STATS.map((stat, idx) => (
-                  <div key={idx} className="text-center">
-                    <div className="text-xl font-semibold text-gray-900">
+              <h2
+                className="text-[clamp(1.85rem,4.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.02em] mb-4 sm:mb-5 text-[#0a0a0a]"
+                style={{ fontWeight: 800 }}
+              >
+                Transform your
+                <br />
+                <span className="text-[#0a0a0a]/35">learning journey.</span>
+              </h2>
+
+              <p className="max-w-[540px] text-[0.95rem] sm:text-[1.05rem] lg:text-[1.1rem] text-[#0a0a0a]/65 leading-[1.65] font-light">
+                Industry-leading features designed to help you learn faster, build real-world skills, and confidently land your dream job — all within one structured ecosystem.
+              </p>
+            </div>
+
+            <div className="col-span-12 lg:col-span-5 flex lg:justify-end">
+              <div className="flex gap-6 sm:gap-10 pt-2">
+                {HERO_STATS.map((stat, i) => (
+                  <div key={i}>
+                    <div
+                      className={`text-[2rem] sm:text-[2.5rem] font-extrabold leading-none ${
+                        i === 0 ? "text-[#2ba88c]" : "text-[#0a0a0a]"
+                      }`}
+                    >
                       <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
+                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 sm:mt-14 h-[1px] w-full bg-gradient-to-r from-[#0a0a0a]/20 via-[#0a0a0a]/5 to-transparent" />
+        </div>
+
+        {/* BENTO GRID */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+          {/* LEFT: Manifesto Card (spans 5 cols, 2 rows) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 lg:col-span-5 relative"
+          >
+            {/* Corner brackets */}
+            <div className="absolute -top-2 -left-2 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[2] rounded-tl-2xl" />
+            <div className="absolute -bottom-2 -right-2 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[2] rounded-br-2xl" />
+
+            <div className="relative bg-[#0a0a0a] text-white rounded-2xl p-6 sm:p-7 md:p-8 h-full overflow-hidden shadow-[0_10px_40px_rgba(10,10,10,0.12)]">
+              {/* Subtle texture inside dark card */}
+              <div className="absolute top-0 right-0 w-60 h-60 bg-[#2ba88c] opacity-[0.08] blur-[100px] rounded-full pointer-events-none" />
+
+              {/* Top label */}
+              <div className="relative flex items-center gap-3 mb-6">
+                <div className="relative">
+                  <div className="w-2 h-2 rounded-full bg-[#2ba88c]" />
+                  <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#2ba88c] animate-ping" />
+                </div>
+                <span className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.25em] text-[#2ba88c] font-bold">
+                  The Commitment
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="relative text-[1.6rem] sm:text-[1.9rem] md:text-[2.1rem] font-extrabold leading-[1.1] tracking-tight mb-3">
+                Your success is <br />
+                <span className="text-[#2ba88c]">our mission.</span>
+              </h3>
+
+              <p className="relative text-[0.9rem] sm:text-[0.95rem] text-white/60 font-light leading-relaxed mb-6 sm:mb-7">
+                Thousands of learners are transforming their careers with structured, mentor-led programs built for the real world.
+              </p>
+
+              {/* Points list */}
+              <ul className="relative space-y-2.5 sm:space-y-3 mb-6 sm:mb-7">
+                {HERO_POINTS.map((text, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-3 text-[0.82rem] sm:text-[0.86rem] text-white/75 font-light leading-snug"
+                  >
+                    <Check
+                      size={14}
+                      className="text-[#2ba88c] mt-0.5 flex-shrink-0"
+                      strokeWidth={3}
+                    />
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Stats strip */}
+              <div className="relative grid grid-cols-3 gap-4 pt-5 sm:pt-6 border-t border-white/10 mb-6">
+                {HERO_STATS.map((stat, idx) => (
+                  <div key={idx}>
+                    <div className="text-[1.3rem] sm:text-[1.5rem] font-extrabold leading-none text-white">
+                      <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <div className="text-[0.6rem] uppercase tracking-[0.2em] text-white/50 font-semibold mt-1.5">
+                      {stat.label}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -947,104 +1007,176 @@ const SkillfymeFeatures = () => {
               {/* CTA */}
               <button
                 onClick={() => setShowForm(true)}
-                className="mt-6 w-full py-3 rounded-lg bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition"
+                className="group/cta relative w-full bg-white text-[#0a0a0a] rounded-full overflow-hidden transition-transform hover:scale-[1.02]"
               >
-                Start Learning Today
+                <div className="relative z-10 flex items-center justify-center gap-2.5 py-3.5 px-6">
+                  <span className="text-[0.8rem] sm:text-[0.85rem] font-bold tracking-[0.1em] uppercase">
+                    Start Learning Today
+                  </span>
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5"
+                    strokeWidth={2.5}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2ba88c] to-[#3cc4a4] translate-y-full group-hover/cta:translate-y-0 transition-transform duration-500" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* FEATURES GRID */}
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* RIGHT: Features Bento (spans 7 cols) */}
+          <div className="col-span-12 lg:col-span-7 grid grid-cols-2 gap-4 sm:gap-5 lg:gap-6 auto-rows-fr">
             {FEATURES.map((feature, index) => (
-              <div
-                key={index}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-                className="h-full bg-white border border-gray-200 rounded-2xl p-6 md:p-7 
-                hover:border-cyan-200 hover:shadow-xl transition"
+              <motion.div
+                key={feature.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.1 + index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group relative rounded-2xl overflow-hidden bg-white border border-[#0a0a0a]/8 shadow-[0_2px_8px_rgba(10,10,10,0.04)] hover:border-[#2ba88c]/40 hover:shadow-[0_20px_50px_rgba(10,10,10,0.08)] transition-all duration-500 cursor-pointer"
               >
-                {/* TOP */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-20 h-auto bg-cyan-50 rounded-lg flex items-center justify-center">
-                    <Image src={feature.icon} alt="" width={35} height={30} />
-                  </div>
-
-                  <span className="text-xs text-gray-400">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                {/* Hover glow */}
+                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#2ba88c] opacity-[0.08] blur-[80px] rounded-full" />
                 </div>
 
-                {/* TITLE */}
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {feature.title}
-                </h3>
+                {/* Top indicator line — animates on hover */}
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#2ba88c] to-[#3cc4a4] group-hover:w-full transition-all duration-500" />
 
-                <p className="text-sm text-gray-500 mt-1">
-                  {feature.subtitle}
-                </p>
+                <div className="relative p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                  {/* Top: Index + Icon */}
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <div>
+                      <div className="text-[0.58rem] sm:text-[0.62rem] font-mono font-bold text-[#0a0a0a]/40 tracking-tight mb-1">
+                        / {String(index + 1).padStart(2, "0")}
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 text-[#0a0a0a]/45 group-hover:text-[#2ba88c] transition-colors duration-500">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]/25 group-hover:bg-[#2ba88c] transition-colors duration-500" />
+                        <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] font-bold">
+                          Feature
+                        </span>
+                      </div>
+                    </div>
 
-                {/* POINTS */}
-                <ul className="mt-4 space-y-2 text-sm text-gray-600">
-                  {feature.points.map((point, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* FOOTER */}
-                <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-200">
-                  <div>
-                    <p className="text-xl font-semibold text-gray-900">
-                      {feature.stat}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {feature.statLabel}
-                    </p>
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border flex items-center justify-center p-2 bg-[#f5f5f0] border-[#0a0a0a]/8 group-hover:bg-[#2ba88c]/10 group-hover:border-[#2ba88c]/30 transition-all duration-500">
+                      <Image
+                        src={feature.icon}
+                        alt={feature.title}
+                        width={24}
+                        height={24}
+                        className="w-full h-full object-contain feature-icon"
+                      />
+                    </div>
                   </div>
 
-                  <div className="w-8 h-8 bg-cyan-50 rounded-lg flex items-center justify-center">
-                    <ArrowRight className="w-4 h-4 text-cyan-600" />
+                  {/* Title */}
+                  <h4 className="text-[1rem] sm:text-[1.1rem] md:text-[1.2rem] font-extrabold leading-tight tracking-tight text-[#0a0a0a] mb-1">
+                    {feature.title}
+                  </h4>
+                  <p className="text-[0.72rem] sm:text-[0.78rem] text-[#0a0a0a]/55 font-medium mb-4 sm:mb-5">
+                    {feature.subtitle}
+                  </p>
+
+                  {/* Points — always visible */}
+                  <ul className="space-y-1.5 sm:space-y-2 mb-4 flex-1">
+                    {feature.points.map((point, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2 text-[0.72rem] sm:text-[0.78rem] text-[#0a0a0a]/65 font-light leading-snug"
+                      >
+                        <div className="w-0.5 h-0.5 rounded-full bg-[#2ba88c] mt-[7px] flex-shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Footer: Stat + Arrow */}
+                  <div className="flex items-end justify-between pt-3 sm:pt-4 border-t border-[#0a0a0a]/8 mt-auto">
+                    <div>
+                      <div className="text-[1.1rem] sm:text-[1.3rem] font-extrabold leading-none tracking-tight text-[#0a0a0a] group-hover:text-[#2ba88c] transition-colors duration-500">
+                        {feature.stat}
+                      </div>
+                      <div className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.18em] text-[#0a0a0a]/50 font-semibold mt-1">
+                        {feature.statLabel}
+                      </div>
+                    </div>
+
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#f5f5f0] text-[#0a0a0a]/40 group-hover:bg-[#2ba88c] group-hover:text-white transition-all duration-500">
+                      <ArrowUpRight
+                        size={14}
+                        strokeWidth={2.5}
+                        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-
         </div>
 
         {/* TRUST STRIP */}
-        <div className="mt-12 pt-6 border-t border-gray-200 text-center">
-          <p className="text-xs text-gray-400 uppercase tracking-wide mb-4">
-            Trusted by learners from
-          </p>
+        <div className="mt-14 sm:mt-16 md:mt-20 pt-8 sm:pt-10 border-t border-[#0a0a0a]/10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-8">
+            {/* Left: Label */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="h-[1px] w-6 bg-[#2ba88c]" />
+              <span className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.25em] text-[#0a0a0a]/55 font-bold">
+                Alumni from
+              </span>
+            </div>
 
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-            {TRUSTED_COMPANIES.map((c, i) => (
-             <span
-  key={i}
-  className="trusted-pulse font-medium"
-  style={{ animationDelay: `${i * 0.3}s` }}
->
-  {c}
-</span>
-            ))}
+            {/* Right: Company logos as text */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8 md:gap-x-10">
+              {TRUSTED_COMPANIES.map((c, i) => (
+                <span
+                  key={i}
+                  className="text-[0.9rem] sm:text-[1rem] md:text-[1.05rem] font-extrabold text-[#0a0a0a]/60 hover:text-[#0a0a0a] transition-colors tracking-tight"
+                  style={{
+                    animation: "subtlePulse 4s ease-in-out infinite",
+                    animationDelay: `${i * 0.4}s`,
+                  }}
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-
       </div>
 
       {showForm && <EnrollmentForm onClose={() => setShowForm(false)} />}
+
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap");
+
+        @keyframes subtlePulse {
+          0%,
+          100% {
+            opacity: 0.6;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .feature-icon {
+          filter: brightness(0) saturate(100%) invert(25%) sepia(8%)
+            saturate(415%) hue-rotate(182deg) brightness(94%) contrast(88%);
+          transition: filter 0.5s ease;
+        }
+
+        .group:hover .feature-icon {
+          filter: brightness(0) saturate(100%) invert(48%) sepia(79%)
+            saturate(365%) hue-rotate(118deg) brightness(92%) contrast(88%);
+        }
+      `}</style>
     </section>
   );
 };
 
 export default SkillfymeFeatures;
-
-
-
-
-
- 

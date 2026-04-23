@@ -49,7 +49,7 @@ body {
 @layer components {
 
   .heading-h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Raleway', serif;
     font-weight: 900;
     font-size: 2.6rem;
     letter-spacing: -0.02em;
