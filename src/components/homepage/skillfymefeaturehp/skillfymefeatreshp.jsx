@@ -719,9 +719,10 @@
 
 
 // --------------------------------------------new design--------------------------------------------------------------
+ 
 
 
- "use client";
+"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -863,7 +864,12 @@ const SkillfymeFeatures = () => {
   return (
     <section
       className="relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28"
-      style={{ fontFamily: "'Raleway', sans-serif" }}
+      style={{
+          fontFamily: "'Raleway', sans-serif",
+          background: "linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%)",
+          color: "#0a0a0a",
+        }}
+      
     >
       {/* Subtle grid pattern */}
       <div
@@ -882,8 +888,8 @@ const SkillfymeFeatures = () => {
       />
 
       {/* Ambient glow */}
-      <div className="absolute top-0 -left-40 w-[500px] h-[500px] rounded-full bg-[#2ba88c] opacity-[0.04] blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-40 w-[400px] h-[400px] rounded-full bg-[#c88f3a] opacity-[0.04] blur-[110px] pointer-events-none" />
+      <div className="absolute top-0 -left-40 w-[500px] h-[500px] rounded-full bg-[#ff6b35] opacity-[0.04] blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-40 w-[400px] h-[400px] rounded-full bg-[#ff6b35] opacity-[0.04] blur-[110px] pointer-events-none" />
 
       <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
         {/* SECTION HEADER */}
@@ -891,8 +897,8 @@ const SkillfymeFeatures = () => {
           <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
             <div className="col-span-12 lg:col-span-7">
               <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
-                <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
-                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                <div className="h-[1px] w-8 sm:w-10 bg-[#ff6b35]" />
+                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#ff6b35] font-bold">
                   What We Offer
                 </span>
               </div>
@@ -917,7 +923,7 @@ const SkillfymeFeatures = () => {
                   <div key={i}>
                     <div
                       className={`text-[2rem] sm:text-[2.5rem] font-extrabold leading-none ${
-                        i === 0 ? "text-[#2ba88c]" : "text-[#0a0a0a]"
+                        i === 0 ? "text-[#ff6b35]" : "text-[#0a0a0a]"
                       }`}
                     >
                       <AnimatedCounter target={stat.value} suffix={stat.suffix} />
@@ -945,20 +951,20 @@ const SkillfymeFeatures = () => {
             className="col-span-12 lg:col-span-5 relative"
           >
             {/* Corner brackets */}
-            <div className="absolute -top-2 -left-2 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[2] rounded-tl-2xl" />
-            <div className="absolute -bottom-2 -right-2 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[2] rounded-br-2xl" />
+            <div className="absolute -top-2 -left-2 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-[#ff6b35]/50 pointer-events-none z-[2] rounded-tl-2xl" />
+            <div className="absolute -bottom-2 -right-2 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-[#ff6b35]/50 pointer-events-none z-[2] rounded-br-2xl" />
 
             <div className="relative bg-[#0a0a0a] text-white rounded-2xl p-6 sm:p-7 md:p-8 h-full overflow-hidden shadow-[0_10px_40px_rgba(10,10,10,0.12)]">
               {/* Subtle texture inside dark card */}
-              <div className="absolute top-0 right-0 w-60 h-60 bg-[#2ba88c] opacity-[0.08] blur-[100px] rounded-full pointer-events-none" />
+              <div className="absolute top-0 right-0 w-60 h-60 bg-[#ff6b35] opacity-[0.08] blur-[100px] rounded-full pointer-events-none" />
 
               {/* Top label */}
               <div className="relative flex items-center gap-3 mb-6">
                 <div className="relative">
-                  <div className="w-2 h-2 rounded-full bg-[#2ba88c]" />
-                  <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#2ba88c] animate-ping" />
+                  <div className="w-2 h-2 rounded-full bg-[#ff6b35]" />
+                  <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#ff6b35] animate-ping" />
                 </div>
-                <span className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.25em] text-[#2ba88c] font-bold">
+                <span className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.25em] text-[#ff6b35] font-bold">
                   The Commitment
                 </span>
               </div>
@@ -966,7 +972,7 @@ const SkillfymeFeatures = () => {
               {/* Title */}
               <h3 className="relative text-[1.6rem] sm:text-[1.9rem] md:text-[2.1rem] font-extrabold leading-[1.1] tracking-tight mb-3">
                 Your success is <br />
-                <span className="text-[#2ba88c]">our mission.</span>
+                <span className="text-[#ff6b35]">our mission.</span>
               </h3>
 
               <p className="relative text-[0.9rem] sm:text-[0.95rem] text-white/60 font-light leading-relaxed mb-6 sm:mb-7">
@@ -982,7 +988,7 @@ const SkillfymeFeatures = () => {
                   >
                     <Check
                       size={14}
-                      className="text-[#2ba88c] mt-0.5 flex-shrink-0"
+                      className="text-[#ff6b35] mt-0.5 flex-shrink-0"
                       strokeWidth={3}
                     />
                     <span>{text}</span>
@@ -1019,7 +1025,7 @@ const SkillfymeFeatures = () => {
                     strokeWidth={2.5}
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2ba88c] to-[#3cc4a4] translate-y-full group-hover/cta:translate-y-0 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b35] to-[#ff8a5e] translate-y-full group-hover/cta:translate-y-0 transition-transform duration-500" />
               </button>
             </div>
           </motion.div>
@@ -1037,15 +1043,15 @@ const SkillfymeFeatures = () => {
                   delay: 0.1 + index * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative rounded-2xl overflow-hidden bg-white border border-[#0a0a0a]/8 shadow-[0_2px_8px_rgba(10,10,10,0.04)] hover:border-[#2ba88c]/40 hover:shadow-[0_20px_50px_rgba(10,10,10,0.08)] transition-all duration-500 cursor-pointer"
+                className="group relative rounded-2xl overflow-hidden bg-white border border-[#0a0a0a]/8 shadow-[0_2px_8px_rgba(10,10,10,0.04)] hover:border-[#ff6b35]/40 hover:shadow-[0_20px_50px_rgba(10,10,10,0.08)] transition-all duration-500 cursor-pointer"
               >
                 {/* Hover glow */}
                 <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#2ba88c] opacity-[0.08] blur-[80px] rounded-full" />
+                  <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#ff6b35] opacity-[0.08] blur-[80px] rounded-full" />
                 </div>
 
                 {/* Top indicator line — animates on hover */}
-                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#2ba88c] to-[#3cc4a4] group-hover:w-full transition-all duration-500" />
+                <div className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#ff6b35] to-[#ff8a5e] group-hover:w-full transition-all duration-500" />
 
                 <div className="relative p-4 sm:p-5 md:p-6 h-full flex flex-col">
                   {/* Top: Index + Icon */}
@@ -1054,15 +1060,15 @@ const SkillfymeFeatures = () => {
                       <div className="text-[0.58rem] sm:text-[0.62rem] font-mono font-bold text-[#0a0a0a]/40 tracking-tight mb-1">
                         / {String(index + 1).padStart(2, "0")}
                       </div>
-                      <div className="inline-flex items-center gap-1.5 text-[#0a0a0a]/45 group-hover:text-[#2ba88c] transition-colors duration-500">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]/25 group-hover:bg-[#2ba88c] transition-colors duration-500" />
+                      <div className="inline-flex items-center gap-1.5 text-[#0a0a0a]/45 group-hover:text-[#ff6b35] transition-colors duration-500">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]/25 group-hover:bg-[#ff6b35] transition-colors duration-500" />
                         <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] font-bold">
                           Feature
                         </span>
                       </div>
                     </div>
 
-                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border flex items-center justify-center p-2 bg-[#f5f5f0] border-[#0a0a0a]/8 group-hover:bg-[#2ba88c]/10 group-hover:border-[#2ba88c]/30 transition-all duration-500">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border flex items-center justify-center p-2 bg-[#f5f5f0] border-[#0a0a0a]/8 group-hover:bg-[#ff6b35]/10 group-hover:border-[#ff6b35]/30 transition-all duration-500">
                       <Image
                         src={feature.icon}
                         alt={feature.title}
@@ -1088,7 +1094,7 @@ const SkillfymeFeatures = () => {
                         key={i}
                         className="flex items-start gap-2 text-[0.72rem] sm:text-[0.78rem] text-[#0a0a0a]/65 font-light leading-snug"
                       >
-                        <div className="w-0.5 h-0.5 rounded-full bg-[#2ba88c] mt-[7px] flex-shrink-0" />
+                        <div className="w-0.5 h-0.5 rounded-full bg-[#ff6b35] mt-[7px] flex-shrink-0" />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -1097,7 +1103,7 @@ const SkillfymeFeatures = () => {
                   {/* Footer: Stat + Arrow */}
                   <div className="flex items-end justify-between pt-3 sm:pt-4 border-t border-[#0a0a0a]/8 mt-auto">
                     <div>
-                      <div className="text-[1.1rem] sm:text-[1.3rem] font-extrabold leading-none tracking-tight text-[#0a0a0a] group-hover:text-[#2ba88c] transition-colors duration-500">
+                      <div className="text-[1.1rem] sm:text-[1.3rem] font-extrabold leading-none tracking-tight text-[#0a0a0a] group-hover:text-[#ff6b35] transition-colors duration-500">
                         {feature.stat}
                       </div>
                       <div className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.18em] text-[#0a0a0a]/50 font-semibold mt-1">
@@ -1105,7 +1111,7 @@ const SkillfymeFeatures = () => {
                       </div>
                     </div>
 
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#f5f5f0] text-[#0a0a0a]/40 group-hover:bg-[#2ba88c] group-hover:text-white transition-all duration-500">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#f5f5f0] text-[#0a0a0a]/40 group-hover:bg-[#ff6b35] group-hover:text-white transition-all duration-500">
                       <ArrowUpRight
                         size={14}
                         strokeWidth={2.5}
@@ -1124,7 +1130,7 @@ const SkillfymeFeatures = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-8">
             {/* Left: Label */}
             <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="h-[1px] w-6 bg-[#2ba88c]" />
+              <div className="h-[1px] w-6 bg-[#ff6b35]" />
               <span className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.25em] text-[#0a0a0a]/55 font-bold">
                 Alumni from
               </span>
@@ -1171,8 +1177,8 @@ const SkillfymeFeatures = () => {
         }
 
         .group:hover .feature-icon {
-          filter: brightness(0) saturate(100%) invert(48%) sepia(79%)
-            saturate(365%) hue-rotate(118deg) brightness(92%) contrast(88%);
+          filter: brightness(0) saturate(100%) invert(54%) sepia(78%)
+            saturate(2891%) hue-rotate(346deg) brightness(101%) contrast(101%);
         }
       `}</style>
     </section>

@@ -192,7 +192,8 @@
 
 
 
- "use client";
+ 
+"use client";
 
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
@@ -281,8 +282,12 @@ const handleClick = (course) => {
   return (
     <section
       className="relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28"
-      style={{ fontFamily: "'Raleway', sans-serif" }}
-    >
+      style={{
+          fontFamily: "'Raleway', sans-serif",
+          background: "linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%)",
+          color: "#0a0a0a",
+        }}
+      >
       {/* Subtle grid pattern background */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none opacity-[0.35]"
@@ -300,8 +305,8 @@ const handleClick = (course) => {
       />
 
       {/* Soft ambient tint */}
-      <div className="absolute top-1/4 -left-40 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-[#2ba88c] opacity-[0.04] blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-40 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full bg-[#f0b880] opacity-[0.05] blur-[110px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-40 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-[#ff6b35] opacity-[0.04] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-40 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full bg-[#ff6b35] opacity-[0.05] blur-[110px] pointer-events-none" />
 
       <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
         {/* SECTION HEADER */}
@@ -311,8 +316,8 @@ const handleClick = (course) => {
             <div className="col-span-12 lg:col-span-7">
               {/* Section tag */}
               <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
-                <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
-                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                <div className="h-[1px] w-8 sm:w-10 bg-[#ff6b35]" />
+                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#ff6b35] font-bold">
                   Our Programs
                 </span>
               </div>
@@ -335,7 +340,7 @@ const handleClick = (course) => {
             <div className="col-span-12 lg:col-span-5 flex lg:justify-end">
               <div className="flex gap-6 sm:gap-10 pt-2">
                 <div>
-                  <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#2ba88c]">
+                  <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#ff6b35]">
                     03
                   </div>
                   <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
@@ -390,16 +395,16 @@ const handleClick = (course) => {
           </div>
           <button
            onClick={() => setShowCallback(true)}
-            className="group flex items-center gap-3 text-[0.85rem] sm:text-[0.9rem] font-bold text-[#2ba88c] hover:text-[#0a0a0a] transition-colors"
+            className="group flex items-center gap-3 text-[0.85rem] sm:text-[0.9rem] font-bold text-[#ff6b35] hover:text-[#0a0a0a] transition-colors"
           >
             <span className="tracking-wide">BOOK A CALL</span>
-            <div className="w-8 h-8 rounded-full border border-[#2ba88c]/40 flex items-center justify-center group-hover:bg-[#2ba88c] group-hover:border-[#2ba88c] transition-all">
+            <div className="w-8 h-8 rounded-full border border-[#ff6b35]/40 flex items-center justify-center group-hover:bg-[#ff6b35] group-hover:border-[#ff6b35] transition-all">
               <svg
                 width="12"
                 height="12"
                 viewBox="0 0 12 12"
                 fill="none"
-                className="text-[#2ba88c] group-hover:text-white transition-colors"
+                className="text-[#ff6b35] group-hover:text-white transition-colors"
               >
                 <path
                   d="M2 10L10 2M10 2H4M10 2V8"
@@ -421,12 +426,12 @@ const handleClick = (course) => {
           style={{ fontFamily: "'Raleway', sans-serif" }}
         >
           <div className="relative bg-white border border-[#0a0a0a]/10 px-8 py-7 rounded-2xl text-center shadow-2xl max-w-sm w-full">
-            <div className="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-[#2ba88c]/60 rounded-tl-2xl pointer-events-none" />
-            <div className="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-[#2ba88c]/60 rounded-br-2xl pointer-events-none" />
+            <div className="absolute -top-2 -left-2 w-10 h-10 border-t-2 border-l-2 border-[#ff6b35]/60 rounded-tl-2xl pointer-events-none" />
+            <div className="absolute -bottom-2 -right-2 w-10 h-10 border-b-2 border-r-2 border-[#ff6b35]/60 rounded-br-2xl pointer-events-none" />
 
             <div className="inline-flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 rounded-full bg-[#2ba88c] animate-pulse" />
-              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#2ba88c] font-bold">
+              <div className="w-2 h-2 rounded-full bg-[#ff6b35] animate-pulse" />
+              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#ff6b35] font-bold">
                 In development
               </span>
             </div>

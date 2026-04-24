@@ -75,6 +75,8 @@ const deopshomapage = () => {
 
   return (
     <>
+    
+    
       <section id="home">
         <DevopsHeader />
       </section>

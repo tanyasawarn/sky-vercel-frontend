@@ -70,12 +70,6 @@
 
 // --------------------------------------------new design--------------------------------------------------------------
 
-
-
-
-
-
-
 "use client";
 
 import React from "react";
@@ -110,8 +104,12 @@ const LearningPath = () => {
   return (
     <section
       className="relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-24"
-      style={{ fontFamily: "'Raleway', sans-serif" }}
-    >
+      style={{
+          fontFamily: "'Raleway', sans-serif",
+          background: "linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%)",
+          color: "#0a0a0a",
+        }}
+      >
       {/* Subtle grid pattern background */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none opacity-[0.35]"
@@ -129,7 +127,7 @@ const LearningPath = () => {
       />
 
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-[#2ba88c] opacity-[0.035] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-[#ff6b35] opacity-[0.035] blur-[120px] pointer-events-none" />
 
       <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
         {/* HEADER */}
@@ -138,8 +136,8 @@ const LearningPath = () => {
             {/* Left: Title block */}
             <div className="col-span-12 lg:col-span-7">
               <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
-                <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
-                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                <div className="h-[1px] w-8 sm:w-10 bg-[#ff6b35]" />
+                <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#ff6b35] font-bold">
                   The Journey
                 </span>
               </div>
@@ -161,8 +159,8 @@ const LearningPath = () => {
             {/* Right: Compass meta */}
             <div className="col-span-12 lg:col-span-5 flex lg:justify-end">
               <div className="relative flex items-center gap-4 bg-white border border-[#0a0a0a]/8 rounded-xl px-5 py-4 shadow-[0_2px_8px_rgba(10,10,10,0.04)]">
-                <div className="w-10 h-10 rounded-full bg-[#2ba88c]/10 flex items-center justify-center flex-shrink-0">
-                  <Compass size={18} className="text-[#2ba88c]" strokeWidth={2.2} />
+                <div className="w-10 h-10 rounded-full bg-[#ff6b35]/10 flex items-center justify-center flex-shrink-0">
+                  <Compass size={18} className="text-[#ff6b35]" strokeWidth={2.2} />
                 </div>
                 <div>
                   <div className="text-[0.6rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-bold mb-0.5">
@@ -189,10 +187,10 @@ const LearningPath = () => {
           className="relative"
         >
           {/* Corner brackets (larger, for the big frame) */}
-          <div className="absolute -top-3 -left-3 w-14 sm:w-20 h-14 sm:h-20 border-t-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tl-2xl" />
-          <div className="absolute -top-3 -right-3 w-14 sm:w-20 h-14 sm:h-20 border-t-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tr-2xl" />
-          <div className="absolute -bottom-3 -left-3 w-14 sm:w-20 h-14 sm:h-20 border-b-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-bl-2xl" />
-          <div className="absolute -bottom-3 -right-3 w-14 sm:w-20 h-14 sm:h-20 border-b-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-br-2xl" />
+          <div className="absolute -top-3 -left-3 w-14 sm:w-20 h-14 sm:h-20 border-t-2 border-l-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-tl-2xl" />
+          <div className="absolute -top-3 -right-3 w-14 sm:w-20 h-14 sm:h-20 border-t-2 border-r-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-tr-2xl" />
+          <div className="absolute -bottom-3 -left-3 w-14 sm:w-20 h-14 sm:h-20 border-b-2 border-l-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-bl-2xl" />
+          <div className="absolute -bottom-3 -right-3 w-14 sm:w-20 h-14 sm:h-20 border-b-2 border-r-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-br-2xl" />
 
           {/* Blueprint card */}
           <div className="relative bg-white border border-[#0a0a0a]/10 rounded-2xl shadow-[0_4px_20px_rgba(10,10,10,0.05)] overflow-hidden">
@@ -200,7 +198,7 @@ const LearningPath = () => {
             <div className="flex items-center justify-between px-5 sm:px-7 py-3 sm:py-4 border-b border-[#0a0a0a]/8 bg-[#f5f5f0]/60">
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="flex gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-[#2ba88c]" />
+                  <div className="w-2 h-2 rounded-full bg-[#ff6b35]" />
                   <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
                   <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
                 </div>
@@ -210,8 +208,8 @@ const LearningPath = () => {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
-                <span className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#2ba88c] font-bold">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
+                <span className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#ff6b35] font-bold">
                   Active
                 </span>
               </div>
@@ -263,7 +261,7 @@ const LearningPath = () => {
               </span>
               <ArrowDown
                 size={14}
-                className="text-[#2ba88c] animate-bounce"
+                className="text-[#ff6b35] animate-bounce"
                 strokeWidth={2.5}
               />
             </div>
@@ -295,18 +293,18 @@ const LearningPath = () => {
               >
                 {/* Connector line to next card (hidden on last) */}
                 {i < milestones.length - 1 && (
-                  <div className="hidden lg:block absolute top-[34px] -right-5 w-5 h-[1px] bg-gradient-to-r from-[#2ba88c]/40 to-transparent z-[1]" />
+                  <div className="hidden lg:block absolute top-[34px] -right-5 w-5 h-[1px] bg-gradient-to-r from-[#ff6b35]/40 to-transparent z-[1]" />
                 )}
 
-                <div className="relative bg-white border border-[#0a0a0a]/8 rounded-xl p-5 sm:p-6 h-full hover:border-[#2ba88c]/40 hover:shadow-[0_10px_30px_rgba(10,10,10,0.06)] transition-all duration-400">
+                <div className="relative bg-white border border-[#0a0a0a]/8 rounded-xl p-5 sm:p-6 h-full hover:border-[#ff6b35]/40 hover:shadow-[0_10px_30px_rgba(10,10,10,0.06)] transition-all duration-400">
                   {/* Top row: phase + dot marker */}
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#0a0a0a]/55 font-bold">
                       {m.phase}
                     </span>
                     <div className="relative w-6 h-6 flex items-center justify-center">
-                      <div className="absolute inset-0 rounded-full bg-[#2ba88c]/15 group-hover:bg-[#2ba88c]/25 transition-colors" />
-                      <div className="relative w-2 h-2 rounded-full bg-[#2ba88c]" />
+                      <div className="absolute inset-0 rounded-full bg-[#ff6b35]/15 group-hover:bg-[#ff6b35]/25 transition-colors" />
+                      <div className="relative w-2 h-2 rounded-full bg-[#ff6b35]" />
                     </div>
                   </div>
 

@@ -211,6 +211,7 @@
 
 
 
+//  ------------------------------------new UI design----------------------------------------------------------------------
 
 
 "use client";
@@ -224,6 +225,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
 
   const courseRoutes = ["devops", "genai", "ml", "aws"];
@@ -231,28 +233,35 @@ export default function Navbar() {
 
   const sections = ["home", "coursedetails", "projects", "course-fee", "testimonials"];
 
+  // Scroll spy + progress
   useEffect(() => {
-    if (!isCoursePage) return;
     const handleScroll = () => {
-      let current = "home";
-      sections.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.offsetTop - 120;
-          if (window.scrollY >= top) current = id;
-        }
-      });
-      setActiveSection(current);
+      // Compress nav after small scroll
+      setScrolled(window.scrollY > 20);
+
+      // Scroll progress (0 to 100)
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      setScrollProgress(Math.min(progress, 100));
+
+      // Section spy
+      if (isCoursePage) {
+        let current = "home";
+        sections.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const top = el.offsetTop - 120;
+            if (window.scrollY >= top) current = id;
+          }
+        });
+        setActiveSection(current);
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isCoursePage]);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -289,10 +298,10 @@ export default function Navbar() {
       <style jsx global>{`
         @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap");
 
-        @keyframes navFloatIn {
+        @keyframes navSlideDown {
           from {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-100%);
           }
           to {
             opacity: 1;
@@ -316,7 +325,7 @@ export default function Navbar() {
             box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.45);
           }
           70% {
-            box-shadow: 0 0 0 12px rgba(255, 107, 53, 0);
+            box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
           }
           100% {
             box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
@@ -324,41 +333,42 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* ────────── DESKTOP CAPSULE (matches hero width) ────────── */}
       <header
-        className="fixed left-0 right-0 z-[100] hidden lg:block transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]`}
         style={{
           fontFamily: "'Raleway', sans-serif",
-          top: scrolled ? "14px" : "24px",
-          animation: "navFloatIn 0.9s cubic-bezier(0.22,1,0.36,1) both",
+          animation: "navSlideDown 0.7s cubic-bezier(0.22,1,0.36,1) both",
+          backgroundColor: "#ffffff",
+borderBottom: "1px solid rgba(10, 10, 10, 0.08)",
+boxShadow: "0 4px 20px rgba(10, 10, 10, 0.06)",
         }}
       >
+        {/* SCROLL PROGRESS BAR — the signature detail */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#0a0a0a]/[0.04]">
+          <div
+            className="h-full bg-gradient-to-r from-[#ff6b35] to-[#ff8a5e] transition-all duration-150 ease-out"
+            style={{
+              width: `${scrollProgress}%`,
+              boxShadow:
+                scrollProgress > 0
+                  ? "0 0 8px rgba(255,107,53,0.5)"
+                  : "none",
+            }}
+          />
+        </div>
+
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
           <div
-            className={`relative flex items-stretch justify-between bg-white/85 backdrop-blur-2xl border border-[#0a0a0a]/8 rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              scrolled ? "px-1.5 py-1.5" : "px-2 py-2"
+            className={`flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              scrolled ? "h-[60px]" : "h-[72px]"
             }`}
-            style={{
-              boxShadow:
-                "0 20px 50px rgba(10, 10, 10, 0.08), 0 4px 14px rgba(10, 10, 10, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-            }}
           >
-            {/* Orange tint glow */}
-            <div className="absolute -inset-[1px] rounded-full pointer-events-none opacity-40">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-[#ff6b35]/8 to-transparent" />
-            </div>
-
-            {/* LEFT CLUSTER: Brand + Nav */}
-            <div className="flex items-stretch">
-              {/* ZONE 1: BRAND */}
-              <Link
-                href="/"
-                className="group relative flex items-center gap-2.5 pl-4 pr-5 rounded-full hover:bg-[#0a0a0a]/[0.03] transition-all duration-300"
-              >
-                <div className="relative flex-shrink-0">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35]" />
-                  <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-ping" />
-                </div>
+            {/* LEFT CLUSTER: Logo + Status */}
+            <div className="flex items-center gap-4 sm:gap-6">
+              {/* Logo */}
+              <Link href="/" className="group flex items-center gap-2.5">
+                
+              
 
                 <img
                   src="/sfnewlogo.webp"
@@ -370,110 +380,72 @@ export default function Navbar() {
                 />
               </Link>
 
-              {/* DIVIDER */}
-              <div className="w-[1px] bg-[#0a0a0a]/10 my-2.5" />
-
-              {/* ZONE 2: NAVIGATION */}
-              <nav className="flex items-center px-2">
-                {isCoursePage
-                  ? courseLinks.map((link, i) => (
-                      <CapsuleLink
-                        key={i}
-                        id={link.id}
-                        label={link.label}
-                        isActive={activeSection === link.id}
-                        isScroll
-                      />
-                    ))
-                  : staticLinks.map((link, i) => (
-                      <CapsuleLink
-                        key={i}
-                        href={link.href}
-                        label={link.label}
-                        isActive={pathname === link.href}
-                      />
-                    ))}
-              </nav>
+            
             </div>
 
-            {/* RIGHT CLUSTER: Divider + Action */}
-            <div className="flex items-stretch">
-              <div className="w-[1px] bg-[#0a0a0a]/10 my-2.5" />
-
-              {/* ZONE 3: ACTION */}
-              <div className="flex items-center gap-1.5 pl-2 pr-1.5">
-           
-       
-
-                <button
-                  onClick={handleLogin}
-                  className={`group relative bg-[#ff6b35] text-white rounded-full overflow-hidden transition-all hover:scale-[1.04] shadow-[0_6px_20px_rgba(255,107,53,0.35)] ${
-                    scrolled ? "h-10 px-4" : "h-11 px-5"
-                  }`}
-                >
-                  <div className="relative z-10 flex items-center gap-2">
-                    <span className="text-[0.75rem] font-bold tracking-[0.1em] uppercase">
-                      Login
-                    </span>
-                    <ArrowUpRight
-                      size={14}
-                      strokeWidth={2.5}
-                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            {/* CENTER: Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {isCoursePage
+                ? courseLinks.map((link, i) => (
+                    <RailLink
+                      key={i}
+                      id={link.id}
+                      label={link.label}
+                      isActive={activeSection === link.id}
+                      isScroll
                     />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-[#ff4d1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+                  ))
+                : staticLinks.map((link, i) => (
+                    <RailLink
+                      key={i}
+                      href={link.href}
+                      label={link.label}
+                      isActive={pathname === link.href}
+                    />
+                  ))}
+            </nav>
 
-      {/* ────────── MOBILE CAPSULE (matches hero width) ────────── */}
-      <header
-        className="fixed top-4 left-0 right-0 z-[100] lg:hidden"
-        style={{
-          fontFamily: "'Raleway', sans-serif",
-          animation: "navFloatIn 0.9s cubic-bezier(0.22,1,0.36,1) both",
-        }}
-      >
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
-          <div
-            className="relative flex items-center justify-between bg-white/90 backdrop-blur-2xl border border-[#0a0a0a]/8 rounded-full px-4 py-2.5"
-            style={{
-              boxShadow:
-                "0 14px 40px rgba(10, 10, 10, 0.08), 0 4px 14px rgba(10, 10, 10, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-            }}
-          >
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="relative flex-shrink-0">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35]" />
-                <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-ping" />
-              </div>
-              <img
-                src="/sfnewlogo.webp"
-                alt="Skillfyme"
-                className="h-7 object-contain"
-                style={{ mixBlendMode: "multiply" }}
-              />
-            </Link>
-
-            <div className="flex items-center gap-2">
+            {/* RIGHT CLUSTER: Action */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Login Button — desktop */}
               <button
                 onClick={handleLogin}
-                className="hidden sm:flex h-9 px-4 bg-[#ff6b35] text-white rounded-full items-center gap-1.5 shadow-[0_4px_14px_rgba(255,107,53,0.35)]"
+                className={`group hidden lg:flex relative bg-[#0a0a0a] text-white rounded-full overflow-hidden transition-all hover:scale-[1.03] items-center ${
+                  scrolled ? "h-10 px-5" : "h-11 px-6"
+                }`}
+              >
+                <div className="relative z-10 flex items-center gap-2">
+                  <span className="text-[0.75rem] font-bold tracking-[0.1em] uppercase">
+                    Login
+                  </span>
+                  <ArrowUpRight
+                    size={14}
+                    strokeWidth={2.5}
+                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </div>
+                {/* Orange fill on hover */}
+                <div className="absolute inset-0 bg-[#ff6b35] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                {/* Shimmer */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 z-[5]" />
+              </button>
+
+              {/* Mobile Login - small pill */}
+              <button
+                onClick={handleLogin}
+                className="hidden sm:flex lg:hidden h-9 px-4 bg-[#0a0a0a] text-white rounded-full items-center gap-1.5"
               >
                 <span className="text-[0.7rem] font-bold tracking-[0.1em] uppercase">
                   Login
                 </span>
               </button>
 
+              {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="relative w-9 h-9 rounded-full bg-[#ff6b35] flex items-center justify-center shadow-[0_4px_14px_rgba(255,107,53,0.35)] hover:scale-105 transition-transform"
+                className="lg:hidden relative w-10 h-10 rounded-full bg-[#ff6b35] flex items-center justify-center shadow-[0_4px_14px_rgba(255,107,53,0.35)] hover:scale-105 transition-transform"
                 aria-label="Toggle menu"
-                style={{ animation: "pulseRing 2.5s ease-out infinite" }}
+                style={{ animation: !menuOpen ? "pulseRing 2.5s ease-out infinite" : "none" }}
               >
                 <div className="relative w-4 h-4">
                   <Menu
@@ -510,11 +482,17 @@ export default function Navbar() {
         }`}
         style={{ fontFamily: "'Raleway', sans-serif" }}
       >
+        {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-[#fafaf7]/97 backdrop-blur-2xl"
+          className="absolute inset-0"
           onClick={() => setMenuOpen(false)}
+          style={{
+            background: "linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%)",
+            opacity: 0.98,
+          }}
         />
 
+        {/* Subtle grid */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.35]"
           style={{
@@ -530,6 +508,7 @@ export default function Navbar() {
           }}
         />
 
+        {/* Glow orbs */}
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#ff6b35] opacity-[0.08] blur-[130px] pointer-events-none" />
         <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full bg-[#ff6b35] opacity-[0.06] blur-[100px] pointer-events-none" />
 
@@ -602,13 +581,7 @@ export default function Navbar() {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
 
-            <div className="flex items-center justify-between text-[0.6rem] uppercase tracking-[0.22em] font-bold">
-              <div className="flex items-center gap-2 text-[#0a0a0a]/55">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
-                <span>Applications Open</span>
-              </div>
-              <span className="text-[#0a0a0a]/40">Skillfyme · 2026</span>
-            </div>
+         
           </div>
         </div>
       </div>
@@ -616,21 +589,41 @@ export default function Navbar() {
   );
 }
 
-/* ────────── CAPSULE LINK (DESKTOP) ────────── */
-const CapsuleLink = ({ id, href, label, isActive, isScroll }) => {
-  const baseClasses = `relative px-4 h-9 flex items-center rounded-full text-[0.78rem] font-semibold tracking-wide transition-all duration-300 ${
-    isActive
-      ? "bg-[#0a0a0a] text-white"
-      : "text-[#0a0a0a]/65 hover:text-[#0a0a0a] hover:bg-[#0a0a0a]/[0.05]"
-  }`;
+/* ────────── DESKTOP NAV LINK ────────── */
+const RailLink = ({ id, href, label, isActive, isScroll }) => {
+  const baseClasses = `group relative px-3 xl:px-4 py-2 rounded-md text-[0.8rem] font-semibold transition-all duration-300`;
 
   const content = (
     <>
-      <span className="relative z-10">{label}</span>
+      {/* Label */}
+      <span
+        className={`relative z-10 transition-colors duration-300 ${
+          isActive
+            ? "text-[#0a0a0a]"
+            : "text-[#0a0a0a]/60 group-hover:text-[#0a0a0a]"
+        }`}
+      >
+        {label}
+      </span>
+
+      {/* Active underline rail */}
+      <span
+        className={`absolute left-3 xl:left-4 right-3 xl:right-4 -bottom-1 h-[2px] rounded-full transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isActive
+            ? "bg-[#ff6b35] opacity-100 scale-x-100"
+            : "bg-[#ff6b35] opacity-0 scale-x-0 group-hover:opacity-50 group-hover:scale-x-100"
+        }`}
+        style={{
+          transformOrigin: "left",
+          boxShadow: isActive ? "0 0 8px rgba(255,107,53,0.5)" : "none",
+        }}
+      />
+
+      {/* Active dot indicator */}
       {isActive && (
-        <div
-          className="ml-2 w-1 h-1 rounded-full bg-[#ff6b35]"
-          style={{ boxShadow: "0 0 8px rgba(255,107,53,0.8)" }}
+        <span
+          className="absolute -top-0.5 right-1.5 w-1 h-1 rounded-full bg-[#ff6b35]"
+          style={{ boxShadow: "0 0 6px rgba(255,107,53,0.8)" }}
         />
       )}
     </>

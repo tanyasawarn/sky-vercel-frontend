@@ -234,8 +234,8 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
       style={{ fontFamily: "'Raleway', sans-serif" }}
     >
       {/* Decorative corner brackets */}
-      <div className="absolute -top-2 -left-2 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-[#2ba88c]/40 group-hover:border-[#2ba88c] transition-colors duration-500 pointer-events-none z-[2] rounded-tl-2xl" />
-      <div className="absolute -bottom-2 -right-2 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-[#2ba88c]/40 group-hover:border-[#2ba88c] transition-colors duration-500 pointer-events-none z-[2] rounded-br-2xl" />
+      <div className="absolute -top-2 -left-2 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-[#ff6b35]/40 group-hover:border-[#ff6b35] transition-colors duration-500 pointer-events-none z-[2] rounded-tl-2xl" />
+      <div className="absolute -bottom-2 -right-2 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-[#ff6b35]/40 group-hover:border-[#ff6b35] transition-colors duration-500 pointer-events-none z-[2] rounded-br-2xl" />
 
       {/* Main Card */}
       <div
@@ -245,14 +245,14 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
       >
         {/* Hover accent wash */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-          <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#2ba88c] opacity-[0.05] blur-[80px] rounded-full" />
+          <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#ff6b35] opacity-[0.05] blur-[80px] rounded-full" />
         </div>
 
         {/* Coming Soon pill (top-right) */}
         {isComingSoon && (
           <div className="absolute top-4 right-4 z-[3] flex items-center gap-2 bg-[#0a0a0a] px-3 py-1.5 rounded-full">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
-            <span className="text-[0.6rem] uppercase tracking-[0.2em] text-[#2ba88c] font-bold">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
+            <span className="text-[0.6rem] uppercase tracking-[0.2em] text-[#ff6b35] font-bold">
               Soon
             </span>
           </div>
@@ -263,7 +263,7 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
           {/* Top Row: Number + Icon */}
           <div className="flex items-start justify-between mb-6 sm:mb-7">
             <div>
-              <div className="text-[2rem] sm:text-[2.25rem] font-extrabold leading-none text-[#2ba88c] mb-2 tracking-tight">
+              <div className="text-[2rem] sm:text-[2.25rem] font-extrabold leading-none text-[#ff6b35] mb-2 tracking-tight">
                 {course.number}
               </div>
               <div className="inline-flex items-center gap-2">
@@ -276,14 +276,14 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
 
             {/* Icon */}
             <div className="relative">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#f5f5f0] border border-[#0a0a0a]/8 flex items-center justify-center p-2.5 group-hover:border-[#2ba88c]/30 group-hover:bg-[#2ba88c]/8 transition-all duration-500">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#f5f5f0] border border-[#0a0a0a]/8 flex items-center justify-center p-2.5 group-hover:border-[#ff6b35]/30 group-hover:bg-[#ff6b35]/8 transition-all duration-500">
                 <img
                   src={course.icon}
                   alt={course.title}
                   className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
                   style={{
                     filter:
-                      "brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(365%) hue-rotate(118deg) brightness(92%) contrast(88%)",
+                      "brightness(0) saturate(100%) invert(54%) sepia(78%) saturate(2891%) hue-rotate(346deg) brightness(101%) contrast(101%)",
                   }}
                 />
               </div>
@@ -296,15 +296,15 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
               <span
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.62rem] uppercase tracking-[0.15em] font-bold ${
                   course.badge === "Best Seller"
-                    ? "bg-[#2ba88c]/10 text-[#2ba88c] border border-[#2ba88c]/20"
-                    : "bg-[#c88f3a]/10 text-[#c88f3a] border border-[#c88f3a]/20"
+                    ? "bg-[#ff6b35]/10 text-[#ff6b35] border border-[#ff6b35]/20"
+                    : "bg-[#0a0a0a]/[0.06] text-[#0a0a0a]/70 border border-[#0a0a0a]/10"
                 }`}
               >
                 <div
                   className={`w-1 h-1 rounded-full ${
                     course.badge === "Best Seller"
-                      ? "bg-[#2ba88c]"
-                      : "bg-[#c88f3a]"
+                      ? "bg-[#ff6b35]"
+                      : "bg-[#0a0a0a]/50"
                   }`}
                 />
                 {course.badge}
@@ -320,14 +320,14 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
           {/* Meta Stats (duration + enrolled) */}
           <div className="flex items-center gap-4 sm:gap-5 pb-5 sm:pb-6 mb-5 sm:mb-6 border-b border-[#0a0a0a]/8">
             <div className="flex items-center gap-2">
-              <Clock3 size={13} className="text-[#2ba88c]" strokeWidth={2.5} />
+              <Clock3 size={13} className="text-[#ff6b35]" strokeWidth={2.5} />
               <span className="text-[0.75rem] sm:text-[0.8rem] text-[#0a0a0a]/75 font-semibold">
                 {course.duration}
               </span>
             </div>
             <div className="w-[1px] h-3 bg-[#0a0a0a]/15" />
             <div className="flex items-center gap-2">
-              <Users size={13} className="text-[#2ba88c]" strokeWidth={2.5} />
+              <Users size={13} className="text-[#ff6b35]" strokeWidth={2.5} />
               <span className="text-[0.75rem] sm:text-[0.8rem] text-[#0a0a0a]/75 font-semibold">
                 {course.enrolled} Enrolled
               </span>
@@ -360,7 +360,7 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
                 key={i}
                 className="flex items-start gap-2.5 text-[0.8rem] sm:text-[0.85rem] text-[#0a0a0a]/65 font-normal leading-relaxed"
               >
-                <div className="w-1 h-1 rounded-full bg-[#2ba88c] mt-2 flex-shrink-0" />
+                <div className="w-1 h-1 rounded-full bg-[#ff6b35] mt-2 flex-shrink-0" />
                 <span>{detail}</span>
               </li>
             ))}
@@ -386,7 +386,7 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
                 <div className="text-[0.6rem] uppercase tracking-[0.2em] text-[#0a0a0a]/40 font-bold">
                   EMI Available
                 </div>
-                <div className="text-[0.7rem] text-[#2ba88c] font-semibold mt-1">
+                <div className="text-[0.7rem] text-[#ff6b35] font-semibold mt-1">
                   No cost option
                 </div>
               </div>
@@ -420,7 +420,7 @@ const CourseCard = ({ course, convertPrice, handleEnrollClick }) => {
               )}
             </div>
             {!isComingSoon && (
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2ba88c] to-[#3cc4a4] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b35] to-[#ff8a5e] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
             )}
           </button>
         </div>

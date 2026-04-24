@@ -421,7 +421,6 @@ const companyLogos = [
 const rowA = companyLogos.slice(0, 8);
 const rowB = companyLogos.slice(7);
 
-// Recent placements ticker data
 const RECENT_PLACEMENTS = [
   { role: "Cloud Engineer", company: "Amazon", location: "Bangalore" },
   { role: "ML Engineer", company: "Uber", location: "Hyderabad" },
@@ -432,7 +431,6 @@ const RECENT_PLACEMENTS = [
   { role: "Platform Engineer", company: "Visa", location: "Mumbai" },
 ];
 
-/* ── Animated Counter ── */
 const useAnimatedCounter = (target) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
@@ -476,7 +474,6 @@ const AnimatedCounter = ({ target, suffix = "" }) => {
   );
 };
 
-/* ── Marquee Row ── */
 const MarqueeRow = ({ items, reverse = false, speed = 32 }) => {
   const repeated = [...items, ...items, ...items, ...items];
   return (
@@ -495,13 +492,11 @@ const MarqueeRow = ({ items, reverse = false, speed = 32 }) => {
 
 const LogoTile = ({ logo }) => (
   <div className="cl-tile group/tile">
-    {/* Number marker on hover */}
     <div className="absolute top-1.5 left-2 text-[0.54rem] font-mono font-bold text-[#0a0a0a]/25 tracking-tight opacity-0 group-hover/tile:opacity-100 transition-opacity duration-300">
       /{String(Math.floor(Math.random() * 99) + 1).padStart(2, "0")}
     </div>
 
-    {/* Top-right corner bracket — appears on hover */}
-    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#2ba88c] opacity-0 group-hover/tile:opacity-100 transition-opacity duration-300" />
+    <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#ff6b35] opacity-0 group-hover/tile:opacity-100 transition-opacity duration-300" />
 
     <img src={logo.url} alt={logo.name} loading="lazy" className="cl-tile-img" />
 
@@ -509,7 +504,6 @@ const LogoTile = ({ logo }) => (
   </div>
 );
 
-/* ── Recent Placements Ticker ── */
 const PlacementTicker = () => {
   const doubled = [...RECENT_PLACEMENTS, ...RECENT_PLACEMENTS];
   return (
@@ -517,7 +511,7 @@ const PlacementTicker = () => {
       <div className="cl-ticker-track">
         {doubled.map((p, i) => (
           <div key={i} className="cl-ticker-item">
-            <div className="w-1 h-1 rounded-full bg-[#2ba88c]" />
+            <div className="w-1 h-1 rounded-full bg-[#ff6b35]" />
             <span className="text-[0.72rem] font-semibold text-[#0a0a0a]/70">
               {p.role}
             </span>
@@ -545,14 +539,9 @@ const CompanyLogos = () => {
           font-family: "Raleway", sans-serif;
         }
 
-        /* ── Marquee animation ── */
         @keyframes cl-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
         .cl-marquee-outer {
           overflow: hidden;
@@ -568,7 +557,6 @@ const CompanyLogos = () => {
           animation: cl-scroll var(--speed) linear infinite var(--dir);
         }
 
-        /* ── Logo tile — editorial frame style ── */
         .cl-tile {
           position: relative;
           flex-shrink: 0;
@@ -588,9 +576,9 @@ const CompanyLogos = () => {
           box-shadow: 0 1px 3px rgba(10, 10, 10, 0.02);
         }
         .cl-tile:hover {
-          border-color: rgba(43, 168, 140, 0.4);
+          border-color: rgba(255, 107, 53, 0.4);
           box-shadow: 0 12px 32px rgba(10, 10, 10, 0.08),
-            0 0 0 4px rgba(43, 168, 140, 0.05);
+            0 0 0 4px rgba(255, 107, 53, 0.05);
           transform: translateY(-4px);
           background: #ffffff;
         }
@@ -615,7 +603,7 @@ const CompanyLogos = () => {
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: #2ba88c;
+          color: #ff6b35;
           white-space: nowrap;
           opacity: 0;
           pointer-events: none;
@@ -626,7 +614,6 @@ const CompanyLogos = () => {
           transform: translateX(-50%) translateY(0);
         }
 
-        /* ── Edge fades ── */
         .cl-fade-left {
           position: absolute;
           left: 0;
@@ -648,14 +635,9 @@ const CompanyLogos = () => {
           z-index: 10;
         }
 
-        /* ── Recent placements ticker ── */
         @keyframes cl-ticker-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
         .cl-ticker-outer {
           overflow: hidden;
@@ -675,32 +657,17 @@ const CompanyLogos = () => {
           white-space: nowrap;
         }
 
-        /* ── Blink animation ── */
         @keyframes cl-blink {
-          0%,
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.4;
-            transform: scale(0.85);
-          }
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(0.85); }
         }
         .cl-blink {
           animation: cl-blink 1.6s ease-in-out infinite;
         }
 
-        /* ── Grid fade-in for stat cards ── */
         @keyframes cl-fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 640px) {
@@ -717,8 +684,14 @@ const CompanyLogos = () => {
         }
       `}</style>
 
-      <section className="cl-root relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28">
-        {/* Subtle grid pattern */}
+      <section className="cl-root relative w-full bg-[#fafaf7] text-[#0a0a0a] overflow-hidden py-16 sm:py-20 md:py-28"
+      style={{
+          fontFamily: "'Raleway', sans-serif",
+          background: "linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%)",
+          color: "#0a0a0a",
+        }}
+      
+      >
         <div
           className="absolute inset-0 z-[1] pointer-events-none opacity-[0.35]"
           style={{
@@ -727,25 +700,20 @@ const CompanyLogos = () => {
               linear-gradient(to bottom, rgba(10,10,10,0.04) 1px, transparent 1px)
             `,
             backgroundSize: "48px 48px",
-            maskImage:
-              "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
           }}
         />
 
-        {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full bg-[#2ba88c] opacity-[0.035] blur-[130px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] rounded-full bg-[#ff6b35] opacity-[0.035] blur-[130px] pointer-events-none" />
 
         <div className="relative z-[10] max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12">
-          {/* ── HEADER ── */}
           <div className="mb-10 sm:mb-14 md:mb-16">
             <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
-              {/* Left: Title block */}
               <div className="col-span-12 lg:col-span-7">
                 <div className="inline-flex items-center gap-3 mb-5 sm:mb-7">
-                  <div className="h-[1px] w-8 sm:w-10 bg-[#2ba88c]" />
-                  <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#2ba88c] font-bold">
+                  <div className="h-[1px] w-8 sm:w-10 bg-[#ff6b35]" />
+                  <span className="text-[0.65rem] sm:text-[0.72rem] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#ff6b35] font-bold">
                     Placement Record
                   </span>
                 </div>
@@ -764,38 +732,20 @@ const CompanyLogos = () => {
                 </p>
               </div>
 
-              {/* Right: Placement stats */}
               <div className="col-span-12 lg:col-span-5 flex lg:justify-end">
                 <div className="flex gap-6 sm:gap-10 pt-2">
                   <div>
-                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#2ba88c]">
+                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#ff6b35]">
                       <AnimatedCounter target={200} suffix="+" />
                     </div>
                     <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
                       Partners
                     </div>
                   </div>
-                  {/* <div>
-                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#0a0a0a]">
-                      <AnimatedCounter target={4200} suffix="+" />
-                    </div>
-                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
-                      Placed
-                    </div>
-                  </div> */}
-                  {/* <div>
-                    <div className="text-[2rem] sm:text-[2.5rem] font-extrabold leading-none text-[#0a0a0a]">
-                      <AnimatedCounter target={28} suffix=" LPA" />
-                    </div>
-                    <div className="text-[0.62rem] sm:text-[0.68rem] uppercase tracking-[0.22em] text-[#0a0a0a]/50 font-semibold mt-1.5 sm:mt-2">
-                      Highest CTC
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>
 
-            {/* Thin divider */}
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -806,7 +756,6 @@ const CompanyLogos = () => {
             />
           </div>
 
-          {/* ── MARQUEE CONTAINER — with frame ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -814,18 +763,16 @@ const CompanyLogos = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            {/* Corner brackets */}
-            <div className="absolute -top-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tl-2xl" />
-            <div className="absolute -top-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-tr-2xl" />
-            <div className="absolute -bottom-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-l-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-bl-2xl" />
-            <div className="absolute -bottom-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-r-2 border-[#2ba88c]/50 pointer-events-none z-[3] rounded-br-2xl" />
+            <div className="absolute -top-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-l-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-tl-2xl" />
+            <div className="absolute -top-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-t-2 border-r-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-tr-2xl" />
+            <div className="absolute -bottom-2 -left-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-l-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-bl-2xl" />
+            <div className="absolute -bottom-2 -right-2 w-10 sm:w-14 h-10 sm:h-14 border-b-2 border-r-2 border-[#ff6b35]/50 pointer-events-none z-[3] rounded-br-2xl" />
 
             <div className="relative bg-white border border-[#0a0a0a]/8 rounded-2xl shadow-[0_4px_20px_rgba(10,10,10,0.04)] overflow-hidden">
-              {/* Header strip — document-style */}
               <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#0a0a0a]/8 bg-[#f5f5f0]/60">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="flex gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-[#2ba88c] cl-blink" />
+                    <div className="w-2 h-2 rounded-full bg-[#ff6b35] cl-blink" />
                     <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
                     <div className="w-2 h-2 rounded-full bg-[#0a0a0a]/20" />
                   </div>
@@ -842,15 +789,14 @@ const CompanyLogos = () => {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
-                    <span className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#2ba88c] font-bold">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
+                    <span className="text-[0.6rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#ff6b35] font-bold">
                       Syncing
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Marquee zone */}
               <div className="relative py-8 sm:py-10 md:py-12 px-2">
                 <div className="cl-fade-left" />
                 <div className="cl-fade-right" />
@@ -863,20 +809,17 @@ const CompanyLogos = () => {
                 </div>
               </div>
 
-              {/* Footer strip with recent placements ticker */}
               <div className="border-t border-[#0a0a0a]/8 bg-[#f5f5f0]/60">
                 <div className="flex items-center">
-                  {/* Ticker label */}
                   <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 border-r border-[#0a0a0a]/10 bg-[#0a0a0a]">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#2ba88c] animate-pulse" />
-                      <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#2ba88c] font-bold whitespace-nowrap">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b35] animate-pulse" />
+                      <span className="text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.22em] text-[#ff6b35] font-bold whitespace-nowrap">
                         Recent Placements
                       </span>
                     </div>
                   </div>
 
-                  {/* Ticker content */}
                   <div className="flex-1 overflow-hidden py-3 sm:py-4">
                     <PlacementTicker />
                   </div>
@@ -885,18 +828,13 @@ const CompanyLogos = () => {
             </div>
           </motion.div>
 
-          {/* ── Bottom info strip ── */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6"
-          >
-          
-
-        
-          </motion.div>
+          />
         </div>
       </section>
     </>
